@@ -1,0 +1,22 @@
+body {
+  background-color: rgb(255, 250, 250);
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: None;
+}
+
+.copies {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.no-link {
+  text-decoration: none;
+}
+
+.helptext {
+  color: red;
+}

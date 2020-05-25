@@ -1,0 +1,27 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+<h1>All Borrowed Books</h1>
+
+<p>Only available to Librarians</p>
+
+{% if object_list %}
+<ul>
+  {% for bookinst in bookinstance_list %}
+  <li class="{% if bookinst.is_overdue %}text-danger{% endif %} row">
+    <a class="col-md-4" href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a>
+    <span class="borrower col-md-2">borrower: {{ bookinst.borrower }}</span>
+    <span class="col-md-2">({{ bookinst.due_back }})</span>
+    <span class="col-md-4">
+      <a href="{% url 'renew-book-librarian' bookinst.id %}">{{ bookinst.id }} </a>
+    </span>
+  </li>
+  {% endfor %}
+</ul>
+
+{% else %}
+
+{% endif %}
+
+{% endblock content %}

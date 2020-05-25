@@ -1,0 +1,33 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div>
+  <h1>{% block title %}
+    All Authors ({{ num_of_authors }})
+    {% endblock title %} </h1>
+
+  {% if perms.catalog.can_crud_author %}
+  <a class="btn btn-primary" href=" {% url 'author_create' %}">Create Author</a>
+  {% endif %}
+
+</div>
+
+<hr>
+{% for author in author_list %}
+
+<div class="row">
+  <h3 class="col-md-7"><a href="{% url 'author-detail' author.pk %}">{{ author }}</a></h3>
+  <div class="col-sm-5">
+    <a class="btn btn-primary" href="{% url 'author_update' author.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'author_delete' author.pk %}">Delete</a>
+  </div>
+</div>
+
+
+<p>Date of Birth: {{ author.date_of_birth }}</p>
+<p>Died: {{ author.date_of_death }}</p>
+<hr>
+
+{% endfor %}
+
+{% endblock content %}

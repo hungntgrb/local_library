@@ -1,0 +1,28 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+<div class="row">
+  <h1 class="col-md-8">{{ author }}</h1>
+  <div class="col-md-4">
+    <a class="btn btn-primary" href="{% url 'author_update' author.pk %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'author_delete' author.pk %}">Delete</a>
+  </div>
+</div>
+
+<hr>
+
+<p>Born: {{ author.date_of_birth }}</p>
+
+{% if author.date_of_death %}
+<p>Died: {{ author.date_of_death }}</p>
+{% endif %}
+
+<ul>
+  {% for book in author.book_set.all %}
+
+  <li><a href="{% url 'book-detail' book.pk %}">{{ book }}</a></li>
+
+  {% endfor %}
+</ul>
+{% endblock content %}

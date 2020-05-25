@@ -1,0 +1,28 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+Home Page
+{% endblock title %}
+
+{% block content %}
+<h1>Library Home Page</h1>
+<p>Welcome to Local-Library, a website developed by <em>Mozilla Developer Network</em>!</p>
+<p>You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% else %}{% endif %}!</p>
+<h2>Dynamic Content</h2>
+<p>The library has the following records:</p>
+<ul>
+  <li><strong>Books:</strong> {{ num_books }}</li>
+  <li><strong>Copies:</strong> {{ num_instances }}</li>
+  <li><strong>Copies Available:</strong> {{ num_instances_available }}</li>
+  <li><strong>Authors:</strong> {{ num_authors }}</li>
+  <li><strong>Genres:</strong> {{ num_genres }}</li>
+  <li><strong>Books have 'Wild' in title:</strong> {{ wild_books.count }}
+    <ul>
+      {% for wild_book in wild_books %}
+      <li>{{ wild_book.title }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+
+</ul>
+{% endblock content %}

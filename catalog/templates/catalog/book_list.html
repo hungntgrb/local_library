@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+All books
+{% endblock title %}
+
+{% block content %}
+
+<h1>Book List</h1>
+<hr>
+
+{% for book in book_list %}
+<h2><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h2>
+<p>Author: {{ book.author }}</p>
+<ul>
+  <li>Summary: {{ book.summary }}</li>
+  <li>ISBN: {{ book.isbn }}</li>
+  <li>Genre: {{ book.display_genre }}</li>
+  <li>Language: {{ book.language }}</li>
+</ul>
+<hr>
+{% endfor %}
+
+{% endblock content %}

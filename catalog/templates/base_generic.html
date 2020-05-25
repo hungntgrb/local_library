@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Local Library - {% block title %}{% endblock title %}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-2">
+          {% block sidebar %}
+          <p>Guten Tag, {{ user.get_username }}</p>
+
+          {% if user.is_authenticated %}
+          <p><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></p>
+          {% else %}
+          <a href="{% url 'login' %}?next={{request.path}}">Login</a>
+          {% endif %}
+
+          {% if perms.catalog.can_mark_returned %}
+          <hr />
+          <p>For Staff Only</p>
+          <a href="{% url 'all-borrowed' %}">All borrowed books</a>
+          {% endif %}
+          {% if perms.catalog.add_book %}
+          <a href="{% url 'book_create' %}">Add a Book</a>
+          {% endif %}
+          <!-- --- HR --- -->
+          <hr>
+          <ul class="sidebar-nav">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'books' %}">All books</a></li>
+            <li><a href="{% url 'authors' %}">All authors</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'my-borrowed' %}">My books</a></li>
+            {% endif %}
+
+          </ul>
+
+          {% endblock sidebar %}
+        </div>
+
+        <div class="col-sm-10">
+          {% block content %}
+          <h1>Put some content here!</h1>
+          {% endblock content %}
+
+          {% if is_paginated %}
+          <div class='pagination'>
+            <span class="page-links">
+              {% if page_obj.has_previous %}
+              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+              {% endif %}
+              <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+              </span>
+              {% if page_obj.has_next %}
+              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+              {% endif %}
+            </span>
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+
+</html>
