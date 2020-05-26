@@ -19,7 +19,7 @@
 
         <div class="col-sm-2">
           {% block sidebar %}
-          <p>Guten Tag, {{ user.get_username }}</p>
+          <p>Xin chao <span class="font-weight-bold">{{ user.get_username }}</span></p>
 
           {% if user.is_authenticated %}
           <p><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></p>
@@ -52,7 +52,6 @@
 
         <div class="col-sm-10">
           {% block content %}
-          <h1>Put some content here!</h1>
           {% endblock content %}
 
           {% if is_paginated %}
@@ -70,8 +69,12 @@
             </span>
           </div>
           {% endif %}
+
         </div>
 
+      </div>
+      <div class="text-center my-credit">
+        Written with Django &copy; Nguyen Thanh Hung, 2020
       </div>
     </div>
 

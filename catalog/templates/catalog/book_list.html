@@ -7,10 +7,26 @@ All books
 {% block content %}
 
 <h1>Book List</h1>
+{% if perms.catalog.add_book %}
+<a href="{% url 'book_create' %}" class="btn btn-primary">Add a Book</a>
+{% endif %}
+
 <hr>
 
 {% for book in book_list %}
-<h2><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h2>
+<div class="row">
+  <h2 class="col-md-8"><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h2>
+  <div class="col-md-4">
+    {% if perms.catalog.change_book %}
+    <a href="{% url 'book_update' book.pk %}" class="btn btn-primary">Update</a>
+    {% endif %}
+    {% if perms.catalog.delete_book %}
+    <a href="{% url 'book_delete' book.pk %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+  </div>
+
+</div>
+
 <p>Author: {{ book.author }}</p>
 <ul>
   <li>Summary: {{ book.summary }}</li>

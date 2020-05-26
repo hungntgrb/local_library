@@ -132,3 +132,4 @@ dmypy.json
 *.bak
 # Database
 *.sqlite3
+locallibrary/settings1.py
