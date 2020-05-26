@@ -107,6 +107,7 @@ class Language(models.Model):
         ('de', 'German'),
         ('es', 'Spanish'),
         ('fa', 'Farsi'),
+        ('vi', 'Vietnamese'),
     )
     name = models.CharField(
         max_length=2, choices=LANGUAGES, default='en', blank=True,

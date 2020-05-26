@@ -133,3 +133,4 @@ dmypy.json
 # Database
 *.sqlite3
 locallibrary/settings1.py
+staticfiles/
