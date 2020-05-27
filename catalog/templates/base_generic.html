@@ -29,18 +29,20 @@
           {% endif %}
 
           {% if perms.catalog.can_mark_returned %}
+
           <hr />
           <p>For Staff Only</p>
-          <a href="{% url 'all-borrowed' %}">All borrowed books</a>
+          <ul>
+            <li><a href="{% url 'all-borrowed' %}">All borrowed books</a></li>
+          </ul>
           {% endif %}
-          {% if perms.catalog.add_book %}
-          <a href="{% url 'book_create' %}">Add a Book</a>
-          {% endif %}
-          <!-- --- HR --- -->
-          <hr>
+
+          <hr />
+
           <ul class="sidebar-nav">
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'books' %}">All books</a></li>
+            <li><a href="{% url 'avail_books' %}">On Shelf</a></li>
             <li><a href="{% url 'authors' %}">All authors</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'my-borrowed' %}">My books</a></li>

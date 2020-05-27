@@ -43,6 +43,11 @@ class BookListView(generic.ListView):
     paginate_by = 2
 
 
+class AvailableBookListView(generic.ListView):
+    queryset = BookInstance.objects.filter(status='a').order_by('book')
+    template_name = 'catalog/available_books.html'
+
+
 class BooksLoanedByUserListView(LoginRequiredMixin, generic.ListView):
     """A list view of books that are on loan by current user"""
     # model = BookInstance
