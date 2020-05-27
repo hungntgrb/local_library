@@ -3,11 +3,9 @@
 {% block content %}
 
 <h1>Borrowed Books</h1>
+<hr />
 
 {% if object_list %}
-{% if perms.catalog.can_mark_returned %}
-<h2>Co Perms Mark Return</h2>
-{% endif %}
 
 <ul>
   {% for bookInst in object_list %}

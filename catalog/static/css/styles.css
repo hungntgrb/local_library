@@ -22,5 +22,6 @@ body {
 }
 
 .helptext {
-  color: red;
+  color: #000;
+  opacity: 0.8;
 }
