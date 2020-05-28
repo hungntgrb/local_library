@@ -14,7 +14,6 @@ body {
 .container {
   background-color: var(--my-yellow);
   min-height: 100vh;
-  position: relative;
 }
 
 .btn {
@@ -28,15 +27,6 @@ a {
 .page-link {
   background-color: var(--dark-green);
   color: #eee;
-}
-
-.my-credit {
-  position: absolute;
-  bottom: 10px;
-  left: 0px;
-  right: 0px;
-  width: 600px;
-  margin: 10px auto;
 }
 
 .sidebar-nav {
@@ -53,4 +43,9 @@ a {
 .helptext {
   color: #000;
   opacity: 0.8;
+}
+
+footer {
+  background-color: var(--light-orange);
+  padding: 16px;
 }
