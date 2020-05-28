@@ -7,8 +7,8 @@
 
     <title>Local Library - {% block title %}{% endblock title %}</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   </head>
@@ -17,7 +17,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-sm-2">
+        <div class="col-md-2">
           {% block sidebar %}
 
           {% if user.is_authenticated %}
@@ -29,24 +29,19 @@
           <a class="btn btn-block " href="{% url 'register' %}">Register</a>
           {% endif %}
 
-          {% if perms.catalog.can_mark_returned %}
-
           <hr />
           <p>For Staff Only</p>
-
           <a href="{% url 'all-borrowed' %}">All borrowed books</a>
-
-          {% endif %}
 
           <hr />
 
-          <ul class="sidebar-nav">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'books' %}">All books</a></li>
-            <li><a href="{% url 'avail_books' %}">On Shelf</a></li>
-            <li><a href="{% url 'authors' %}">All authors</a></li>
+          <ul class="sidebar-nav row">
+            <li class="col-3 col-md-6"><a href="{% url 'index' %}">Home</a></li>
+            <li class="col-3 col-md-6"><a href="{% url 'books' %}">All books</a></li>
+            <li class="col-3 col-md-6"><a href="{% url 'avail_books' %}">On Shelf</a></li>
+            <li class="col-3 col-md-6"><a href="{% url 'authors' %}">All authors</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'my-borrowed' %}">My books</a></li>
+            <li class="col-3 col-md-6"><a href="{% url 'my-borrowed' %}">My books</a></li>
             {% endif %}
 
           </ul>
@@ -54,7 +49,7 @@
           {% endblock sidebar %}
         </div>
 
-        <div class="col-sm-10">
+        <div class="col-md-10">
           {% block content %}
           {% endblock content %}
           <!-- ---------- PAGINATION --------------->
@@ -86,10 +81,18 @@
 
     </div>
     <footer class="text-center my-credit">
-
       Written with Django &copy; <strong>Nguyen Thanh Hung</strong>, 2020
-
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"></script>
 
   </body>
 
