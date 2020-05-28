@@ -6,11 +6,19 @@
 
 <hr />
 
-<table>
+<table class="table table-borderless">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Book</th>
+      <th scope="col">UId</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
   {% for instance in bookinstance_list %}
   <tr>
     <th>{{ instance.book.title }}</th>
-    <td>Id: {{ instance.pk }}</td>
+    <td>{{ instance.pk }}</td>
+    <td><a class="btn" href="{% url 'borrow_a_book' instance.pk %}">Borrow</a></td>
   </tr>
   {% endfor %}
 </table>

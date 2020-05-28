@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -46,6 +46,22 @@ class BookListView(generic.ListView):
 class AvailableBookListView(generic.ListView):
     queryset = BookInstance.objects.filter(status='a').order_by('book')
     template_name = 'catalog/available_books.html'
+
+
+def borrow_a_book(request, uid):
+    book_copy = BookInstance.objects.get(pk=uid)
+    book_copy.status = 'o'
+    book_copy.borrower = request.user
+    book_copy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
+    book_copy.save()
+    return redirect(reverse('my-borrowed'))
+
+
+def return_a_book(request, uid):
+    book_copy = BookInstance.objects.filter(pk=uid)
+    changes = {'status': 'a', 'borrower': None, 'due_back': None}
+    book_copy.update(**changes)
+    return redirect(reverse('my-borrowed'))
 
 
 class BooksLoanedByUserListView(LoginRequiredMixin, generic.ListView):

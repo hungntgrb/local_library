@@ -1,5 +1,27 @@
+:root {
+  --dark-green: #264653;
+  --light-green: #2a9d8f;
+  --my-yellow: #e9c46a;
+  --light-orange: #f4a261;
+  --dark-orange: #e76f51;
+}
+
 body {
-  background-color: #eee;
+  background-color: var(--dark-green);
+  color: var(--dark-green);
+}
+
+.container {
+  background-color: var(--my-yellow);
+  min-height: 100vh;
+}
+
+.btn {
+  background-color: var(--light-orange);
+}
+
+a {
+  color: var(--dark-green);
 }
 
 .my-credit {
@@ -15,10 +37,6 @@ body {
 .copies {
   margin-top: 20px;
   margin-left: 20px;
-}
-
-.no-link {
-  text-decoration: none;
 }
 
 .helptext {

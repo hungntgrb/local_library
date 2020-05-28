@@ -7,7 +7,7 @@
     {% endblock title %} </h1>
 
   {% if perms.catalog.can_crud_author %}
-  <a class="btn btn-primary" href=" {% url 'author_create' %}">Create Author</a>
+  <a class="btn " href=" {% url 'author_create' %}">Create Author</a>
   {% endif %}
 
 </div>
@@ -19,10 +19,10 @@
   <h3 class="col-md-7"><a href="{% url 'author-detail' author.pk %}">{{ author }}</a></h3>
   <div class="col-sm-5">
     {% if perms.catalog.change_author %}
-    <a class="btn btn-primary" href="{% url 'author_update' author.pk %}">Update</a>
+    <a class="btn " href="{% url 'author_update' author.pk %}">Update</a>
     {% endif %}
     {% if perms.catalog.delete_author %}
-    <a class="btn btn-danger" href="{% url 'author_delete' author.pk %}">Delete</a>
+    <a class="btn " href="{% url 'author_delete' author.pk %}">Delete</a>
     {% endif %}
   </div>
 </div>

@@ -7,13 +7,23 @@
 
 {% if object_list %}
 
-<ul>
+<table class="table table-borderless">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Book</th>
+      <th scope="col">Due date</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
   {% for bookInst in object_list %}
-  <li class="{% if bookInst.is_overdue %}text-danger{% endif %} no-link">
-    <a href="{% url 'book-detail' bookInst.book.pk %}">{{ bookInst.book.title }} </a> ({{ bookInst.due_back }})
-  </li>
+  <tr>
+    <th><a href="{% url 'book-detail' bookInst.book.pk %}">{{ bookInst.book.title }} </a></th>
+    <td class="{% if bookInst.is_overdue %}text-danger{% endif %}">{{ bookInst.due_back }}</td>
+    <td><a class="btn" href="{% url 'return_a_book' bookInst.pk %}">Return</a></td>
+  </tr>
+
   {% endfor %}
-</ul>
+</table>
 
 {% else %}
 <p>There are no books borrowed.</p>

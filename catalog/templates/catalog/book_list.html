@@ -8,7 +8,7 @@ All books
 
 <h1>Book List</h1>
 {% if perms.catalog.add_book %}
-<a href="{% url 'book_create' %}" class="btn btn-primary">Add a Book</a>
+<a href="{% url 'book_create' %}" class="btn ">Add a Book</a>
 {% endif %}
 
 <hr>
@@ -18,10 +18,10 @@ All books
   <h2 class="col-md-8"><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h2>
   <div class="col-md-4">
     {% if perms.catalog.change_book %}
-    <a href="{% url 'book_update' book.pk %}" class="btn btn-primary">Update</a>
+    <a href="{% url 'book_update' book.pk %}" class="btn ">Update</a>
     {% endif %}
     {% if perms.catalog.delete_book %}
-    <a href="{% url 'book_delete' book.pk %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'book_delete' book.pk %}" class="btn ">Delete</a>
     {% endif %}
   </div>
 
