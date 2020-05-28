@@ -24,8 +24,13 @@ a {
   color: var(--dark-green);
 }
 
+.page-link {
+  background-color: var(--dark-green);
+  color: #eee;
+}
+
 .my-credit {
-  padding-top: 50px;
+  padding-bottom: 16px;
 }
 
 .sidebar-nav {

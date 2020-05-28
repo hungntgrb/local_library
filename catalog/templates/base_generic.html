@@ -33,9 +33,9 @@
 
           <hr />
           <p>For Staff Only</p>
-          <ul>
-            <li><a href="{% url 'all-borrowed' %}">All borrowed books</a></li>
-          </ul>
+
+          <a href="{% url 'all-borrowed' %}">All borrowed books</a>
+
           {% endif %}
 
           <hr />
@@ -57,27 +57,33 @@
         <div class="col-sm-10">
           {% block content %}
           {% endblock content %}
-
+          <!-- ---------- PAGINATION --------------->
           {% if is_paginated %}
-          <div class='pagination'>
-            <span class="page-links">
+          <nav aria-label="Pages">
+            <ul class="pagination justify-content-center">
               {% if page_obj.has_previous %}
-              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+              <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+              </li>
               {% endif %}
-              <span class="page-current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-              </span>
+              <li class="page-item">
+                <span class="sr-only">(Current)</span>
+                <a href="" class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
+              </li>
               {% if page_obj.has_next %}
-              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+              <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+              </li>
+
               {% endif %}
-            </span>
-          </div>
+            </ul>
+          </nav>
           {% endif %}
 
         </div>
 
       </div>
-      <div class="text-center my-credit">
+      <div class="fixed-bottom text-center my-credit">
         Written with Django &copy; <strong>Nguyen Thanh Hung</strong>, 2020
       </div>
     </div>

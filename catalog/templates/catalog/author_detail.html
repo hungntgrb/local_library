@@ -5,8 +5,12 @@
 <div class="row">
   <h1 class="col-md-8">{{ author }}</h1>
   <div class="col-md-4">
+    {% if perms.catalog.change_author %}
     <a class="btn " href="{% url 'author_update' author.pk %}">Update</a>
+    {% endif %}
+    {% if perms.catalog.delete_author %}
     <a class="btn " href="{% url 'author_delete' author.pk %}">Delete</a>
+    {% endif %}
   </div>
 </div>
 
@@ -18,11 +22,19 @@
 <p>Died: {{ author.date_of_death }}</p>
 {% endif %}
 
-<ul>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Books</th>
+    </tr>
+  </thead>
+
   {% for book in author.book_set.all %}
-
-  <li><a href="{% url 'book-detail' book.pk %}">{{ book }}</a></li>
-
+  <tr>
+    <th scope="row"><a href="{% url 'book-detail' book.pk %}">{{ book }}</a></td>
+  </tr>
   {% endfor %}
-</ul>
+
+</table>
+
 {% endblock content %}
