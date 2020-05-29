@@ -23,10 +23,8 @@
 
   <input class="btn btn-block " type="submit" value="Login">
   <input type="hidden" name="next" value="{{ next }}">
-
-
 </form>
 
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<a class="my-4" href="{% url 'password_reset' %}">Lost password?</a>
 
 {% endblock content %}
