@@ -40,7 +40,12 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 2
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['books_count'] = Book.objects.count()
+        return context
 
 
 class AvailableBookListView(generic.ListView):
@@ -93,8 +98,8 @@ class BookDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class AuthorListView(generic.ListView):
-    model = Author
-    paginate_by = 3
+    queryset = Author.objects.all().order_by('first_name')
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

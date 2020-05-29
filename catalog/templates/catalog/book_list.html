@@ -6,7 +6,7 @@ All books
 
 {% block content %}
 
-<h1>Book List</h1>
+<h1>Book List ({{ books_count }})</h1>
 {% if perms.catalog.add_book %}
 <a href="{% url 'book_create' %}" class="btn ">Add a Book</a>
 {% endif %}

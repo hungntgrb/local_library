@@ -17,7 +17,18 @@ body {
 }
 
 .btn {
-  background-color: var(--light-orange);
+  background-color: var(--dark-green);
+  color: #eee;
+  font-weight: bold;
+}
+
+.bg-success,
+.bg-danger {
+  color: #eee;
+}
+
+.bg-warning {
+  color: #222;
 }
 
 a {
