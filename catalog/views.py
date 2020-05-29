@@ -7,6 +7,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 
 from .models import Book, Author, BookInstance, Genre
 from .forms import RenewBookForm, RenewBookModelForm
@@ -59,6 +60,11 @@ def borrow_a_book(request, uid):
     book_copy.borrower = request.user
     book_copy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
     book_copy.save()
+    # Display message
+    on_shelf = reverse('avail_books')
+    messages.success(
+        request, f'You have successfully borrowed a book. <a class="alert-link" href="{on_shelf}">Borrow another one?</a>', extra_tags='safe')
+
     return redirect(reverse('my-borrowed'))
 
 
@@ -66,6 +72,13 @@ def return_a_book(request, uid):
     book_copy = BookInstance.objects.filter(pk=uid)
     changes = {'status': 'a', 'borrower': None, 'due_back': None}
     book_copy.update(**changes)
+
+    book_name = book_copy.first().book.title
+
+    messages.success(request,
+                     f'You have returned <a class="alert-link" href="#">{book_name}</a>.',
+                     extra_tags='safe')
+
     return redirect(reverse('my-borrowed'))
 
 

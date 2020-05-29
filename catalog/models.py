@@ -79,6 +79,9 @@ class BookInstance(models.Model):
             return True
         return False
 
+    def days_left(self):
+        return (self.due_back - date.today()).days
+
 
 class Author(models.Model):
     """Model represent an author"""

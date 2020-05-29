@@ -27,7 +27,7 @@
 
         Hung's Library</a>
 
-      <ul class="nav">
+      <ul class="nav order-lg-last">
         {% if user.is_authenticated %}
 
         <li class="nav-item dropdown">
@@ -58,7 +58,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="libNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
 
           <li class="nav-item"><a class="nav-link" href="{% url 'books' %}">All books</a></li>
@@ -79,9 +79,30 @@
     </nav>
 
     <div class="container py-3">
+      <!------ MESSAGE SECTION -------->
+      {% if messages %}
+
+      {% for message in messages %}
+      <div class="alert alert-{{message.level_tag}} alert-dismissible" role="alert">
+
+        {% if "safe" in message.extra_tags %}
+        {{ message|safe }}
+        {% else %}
+        {{ message }}
+        {% endif %}
+
+        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      {% endfor %}
+      {% endif %}
+      <!------ END MESSAGE SECTION -------->
 
       {% block content %}
       {% endblock content %}
+
       <!-- ---------- PAGINATION --------------->
       {% if is_paginated %}
       <nav aria-label="Pages">
@@ -104,6 +125,7 @@
         </ul>
       </nav>
       {% endif %}
+      <!------------ END PAGINATION --------------->
 
     </div>
 
