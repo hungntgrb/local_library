@@ -22,7 +22,7 @@
     <td><a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a></td>
     <td>{{ bookinst.borrower }}</td>
     <td class="{% if bookinst.is_overdue %}text-danger{% endif %}">{{ bookinst.due_back }}</td>
-    <td><a class="btn" href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a></td>
+    <td><a class="btn my-btn" href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a></td>
   </tr>
   {% endfor %}
 </table>

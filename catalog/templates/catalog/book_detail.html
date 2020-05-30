@@ -10,10 +10,10 @@ Book Detail
   <h1 class="col-md-8">{{ book.title }}</h1>
   <div class="crud">
     {% if perms.catalog.change_book %}
-    <a href="{% url 'book_update' book.pk %}" class="btn ">Update</a>
+    <a href="{% url 'book_update' book.pk %}" ">{% include 'update_button.html' %}</a>
     {% endif %}
     {% if perms.catalog.delete_book %}
-    <a href="{% url 'book_delete' book.pk %}" class="btn ">Delete</a>
+    <a href=" {% url 'book_delete' book.pk %}">{% include 'delete_button.html' %}</a>
     {% endif %}
   </div>
 </div>

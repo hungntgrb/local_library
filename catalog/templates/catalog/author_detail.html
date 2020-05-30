@@ -6,10 +6,10 @@
   <h1 class="col-md-8">{{ author }}</h1>
   <div class="col-md-4">
     {% if perms.catalog.change_author %}
-    <a class="btn " href="{% url 'author_update' author.pk %}">Update</a>
+    <a href="{% url 'author_update' author.pk %}">{% include 'update_button.html' %}</a>
     {% endif %}
     {% if perms.catalog.delete_author %}
-    <a class="btn " href="{% url 'author_delete' author.pk %}">Delete</a>
+    <a href="{% url 'author_delete' author.pk %}">{% include 'delete_button.html' %}</a>
     {% endif %}
   </div>
 </div>

@@ -1,49 +1,57 @@
 {% extends 'base_generic.html' %}
 
+{% block heading %}
+{% block title %}
+All Authors {% endblock title %}({{ num_of_authors }})
+{% endblock heading %}
+
 {% block content %}
 <div>
-  <h1>{% block title %}
-    All Authors {% endblock title %}({{ num_of_authors }})
-  </h1>
+
 
   {% if perms.catalog.add_author %}
-  <a class="btn" href="{% url 'author_create' %}">Create Author</a>
+  <a class="btn my-btn" href="{% url 'author_create' %}">Create Author</a>
   {% endif %}
 
 </div>
 
 <hr>
-<table class="table table-borderless">
 
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Born</th>
-      <th scope="col">Died</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-
+<div class="row">
   {% for author in author_list %}
-  <tr>
-    <th scope="row"><a href="{% url 'author-detail' author.pk %}">{{ author }}</a></th>
-    <td>{{ author.date_of_birth }}</td>
-    <td>{{ author.date_of_death }}</td>
-    <td>
-      {% if perms.catalog.change_author %}
-      <a class="btn" href="{% url 'author_update' author.pk %}">Update</a>
-      {% endif %}
-    </td>
-    <td>
-      {% if perms.catalog.delete_author %}
-      <a class="btn" href="{% url 'author_delete' author.pk %}">Delete</a>
-      {% endif %}
-    </td>
-  </tr>
+  <div class="col-md-6">
+    <div class="card border-dark mb-4 ">
+      <div class="card-header bg-dark ">
+        <h2 class="mb-2 ">
+          <a class="text-light" href="{% url 'author-detail' author.pk %}">{{ author }}</a>
+        </h2>
+
+        <div class="d-flex justify-content-end">
+          {% if perms.catalog.change_author %}
+          <a href="{% url 'author_update' author.pk %}">{% include '../update_button.html' %}</a>
+          {% endif %}
+
+          {% if perms.catalog.delete_author %}
+          <a href="{% url 'author_delete' author.pk %}">{% include '../delete_button.html' %}</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="card-body bg-light">
+        <p class="card-text">
+          Born: {{ author.date_of_birth }}
+        </p>
+        <p class="card-text">
+          Died: {{ author.date_of_death }}
+        </p>
+
+
+
+      </div>
+    </div>
+  </div>
   {% endfor %}
 
-</table>
+</div>
 
 <!-- {% for author in author_list %}
 
