@@ -21,10 +21,12 @@
   {% csrf_token %}
   {{ form | crispy }}
 
-  <input class="btn btn-block " type="submit" value="Login">
+  <input class="btn btn-block my-btn" type="submit" value="Login">
   <input type="hidden" name="next" value="{{ next }}">
 </form>
 
-<a class="my-4" href="{% url 'password_reset' %}">Lost password?</a>
+<a href="{% url 'password_reset' %}">
+  <p class="my-3"> Lost password?</p>
+</a>
 
 {% endblock content %}

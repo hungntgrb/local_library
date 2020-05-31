@@ -59,11 +59,15 @@
 
       <div class="collapse navbar-collapse" id="libNav">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}"><a class="nav-link"
+              href="{% url 'index' %}">Home</a></li>
 
-          <li class="nav-item"><a class="nav-link" href="{% url 'books' %}">All books</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'authors' %}">All authors</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'avail_books' %}">On Shelf</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'books' %}active{% endif %}"><a class="nav-link"
+              href="{% url 'books' %}">All books</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'authors' %}active{% endif %}"><a
+              class="nav-link" href="{% url 'authors' %}">All authors</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'avail_books' %}active{% endif %}"><a
+              class="nav-link" href="{% url 'avail_books' %}">On Shelf</a></li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
