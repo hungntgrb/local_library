@@ -105,7 +105,7 @@ class AllBorrowedBooksListView(LoginRequiredMixin, PermissionRequiredMixin, gene
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 
-class BookDetailView(LoginRequiredMixin, generic.DetailView):
+class BookDetailView(generic.DetailView):
     model = Book
     redirect_field_name = 'chuyen_toi'
 

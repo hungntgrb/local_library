@@ -2,30 +2,53 @@
 
 {% block content %}
 
-<h1>Available Books</h1>
+<h1>Available Books ({{ object_list.count }})</h1>
 
 <hr />
 
-<table class="table table-borderless">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Book</th>
-      <th scope="col">Unique Id</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  {% for instance in bookinstance_list %}
-  <tr>
-    <th>{{ instance.book.title }}</th>
-    <td>{{ instance.pk|truncatechars:8 }}</td>
-    <td>
-      {% if user.is_authenticated %}
-      <a class="btn my-btn" href="{% url 'borrow_a_book' instance.pk %}">Borrow</a>
-      {% endif %}
-    </td>
-  </tr>
+<!--- REGROUP -->
+{% regroup object_list by book as book_list %}
+
+<div class="accordion" id="availableBooks">
+
+  {% for book, copies in book_list %}
+
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-block text-left font-weight-bold" type="button" data-toggle="collapse"
+          data-target="#book-{{book.id}}" aria-expanded="true" aria-controls="book-{{book.id}}">
+          {{ book }}
+        </button>
+      </h2>
+    </div>
+
+    <div id="book-{{book.id}}" class="collapse {% if forloop.first %}show{% endif %}" aria-labelledby="headingOne"
+      data-parent="#availableBooks">
+      <div class="card-body">
+
+        <ul class="list-group list-group-flush">
+          {% for copy_ in copies %}
+          <li class="list-group-item">
+            <a href="{% url 'borrow_a_book' copy_.pk %}">
+              <strong>Id:</strong> {{ copy_.pk|truncatechars:23 }}
+              {% if user.is_authenticated %}
+              <span class="btn my-btn ml-2">Borrow</span>
+              {% endif %}
+
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
   {% endfor %}
-</table>
+
+</div>
+
 
 
 {% endblock content %}

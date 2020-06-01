@@ -41,7 +41,7 @@ Book List ({{ books_count }})
           <li>Summary: {{ book.summary }}</li>
           <li>ISBN: {{ book.isbn }}</li>
           <li>Genre: {{ book.display_genre }}</li>
-          <li>Language: {{ book.language }}</li>
+          <li>Language: {{ book.language.get_name_display }}</li>
         </ul>
         </p>
       </div>
