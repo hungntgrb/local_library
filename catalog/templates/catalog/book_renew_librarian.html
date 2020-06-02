@@ -1,4 +1,5 @@
 {% extends 'base_generic.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -6,12 +7,12 @@
 <p>Borrower: {{ book_instance.borrower }}</p>
 <p{% if book_instance.is_overdue %}class="text-danger"{% endif %}>Due date: {{ book_instance.due_back }}</p>
 
-  <form action="" method="POST">
+  <form class="col-md-6" action="" method="POST">
     {% csrf_token %}
     <table>
-      {{ form.as_table }}
+      {{ form | crispy }}
     </table>
-    <input type="submit" value="Renew">
+    <input class="btn my-btn" type="submit" value="Renew">
   </form>
 
   {% endblock content %}
