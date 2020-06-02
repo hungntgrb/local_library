@@ -25,7 +25,8 @@
             d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z" />
         </svg>
 
-        <span class="d-none d-sm-inline">Hung's Library</span></a>
+        <span class="d-none d-sm-inline">Hung's Library</span>
+      </a>
 
       <ul class="nav order-lg-last">
         {% if user.is_authenticated %}
@@ -57,8 +58,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="libNav">
-        <ul class="navbar-nav mx-auto">
+      <div class="collapse navbar-collapse " id="libNav">
+
+        <ul class="navbar-nav ">
           <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}"><a class="nav-link"
               href="{% url 'index' %}">Home</a></li>
 
@@ -76,8 +78,14 @@
               <a class="dropdown-item" href="{% url 'all-borrowed' %}">All borrowed books</a>
             </div>
           </li>
-
         </ul>
+
+        <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="q"
+            id="search-bar">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
       </div>
 
     </nav>
@@ -107,14 +115,20 @@
       {% if form.errors %}
       {% for field in form %}
       {% for error in field.errors %}
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-danger alert-dismissible" role="alert">
         <strong>{{ error|escape }}</strong>
+        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       {% endfor %}
       {% endfor %}
       {% for error in form.non_field_errors %}
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-danger alert-dismissible" role="alert">
         <strong>{{ error|escape }}</strong>
+        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       {% endfor %}
       {% endif %}

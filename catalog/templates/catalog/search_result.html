@@ -1,0 +1,26 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+<h1 class="display-4 border-bottom border-dark pb-2 mb-3">Search Results</h1>
+
+<h5>Books</h5>
+<ul>
+  {% for book in books %}
+  <li>{{ book }}</li>
+  {% empty %}
+  <p class="text-danger">No books match!</p>
+  {% endfor %}
+</ul>
+
+<h5>Authors</h5>
+<ul>
+  {% for author in authors %}
+  <li>{{ author }}</li>
+  {% empty %}
+  <p class="text-danger">No authors match!</p>
+  {% endfor %}
+</ul>
+
+
+{% endblock content %}

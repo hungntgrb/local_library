@@ -204,3 +204,14 @@ class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     permission_required = 'catalog.delete_book'
     success_url = reverse_lazy('books')
     success_message = f'Book successfully deleted!'
+
+
+def search_view(request):
+    q = request.GET.get('q')
+    book_results = Book.objects.filter(title__icontains=q)
+    author_results = Author.objects.filter(first_name__icontains=q)
+    context = {
+        'books': book_results,
+        'authors': author_results,
+    }
+    return render(request, 'catalog/search_result.html', context)
