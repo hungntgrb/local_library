@@ -46,6 +46,8 @@ body {
 .container {
   background-color: var(--my-yellow);
   min-height: 100vh;
+  padding-top: 4rem !important;
+  padding-bottom: 2rem !important;
 }
 
 .my-btn {
@@ -66,6 +68,10 @@ body {
 a {
   color: var(--dark-green);
 }
+
+/* .nav-item .active {
+  background-color: var(--my-yellow) !important;
+} */
 
 .page-link {
   background-color: var(--dark-green);

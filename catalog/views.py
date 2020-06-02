@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Book, Author, BookInstance, Genre
 from .forms import RenewBookForm, RenewBookModelForm
@@ -56,16 +57,27 @@ class AvailableBookListView(generic.ListView):
 
 def borrow_a_book(request, uid):
     book_copy = BookInstance.objects.get(pk=uid)
-    book_copy.status = 'o'
-    book_copy.borrower = request.user
-    book_copy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
-    book_copy.save()
-    # Display message
-    on_shelf = reverse('avail_books')
-    messages.success(
-        request, f'You have successfully borrowed a book. <a class="alert-link" href="{on_shelf}">Borrow another one?</a>', extra_tags='safe')
 
-    return redirect(reverse('my-borrowed'))
+    borrowing_books = map(
+        lambda x: x.book,
+        request.user.bookinstance_set.all()
+    )
+
+    if book_copy.book not in borrowing_books:
+        book_copy.status = 'o'
+        book_copy.borrower = request.user
+        book_copy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
+        book_copy.save()
+        # Display message
+        on_shelf = reverse('avail_books')
+        messages.success(
+            request, f'You have successfully borrowed <a class="alert-link">&lt;{book_copy.book}&gt;</a>. <br/><a class="alert-link" href="{on_shelf}">Borrow another one?</a>', extra_tags='safe')
+        return redirect(reverse('my-borrowed'))
+    messages.error(
+        request, f'You are currently borrowing a copy of <a class="alert-link">&lt;{book_copy.book}&gt;</a>.',
+        extra_tags='safe'
+    )
+    return redirect(reverse('avail_books'))
 
 
 def return_a_book(request, uid):
@@ -76,7 +88,7 @@ def return_a_book(request, uid):
     book_name = book_copy.first().book.title
 
     messages.success(request,
-                     f'You have returned <a class="alert-link" href="#">{book_name}</a>.',
+                     f'You have returned <a class="alert-link" href="#">&lt;{book_name}&gt;</a>.',
                      extra_tags='safe')
 
     return redirect(reverse('my-borrowed'))
@@ -149,40 +161,46 @@ def renew_book_librarian(request, pk):
 # --------- CREATE, UPDATE, DELETE AUTHOR ----------------
 
 
-class AuthorCreate(PermissionRequiredMixin, CreateView):
+class AuthorCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Author
     fields = '__all__'
     initial = {'date_of_death': '01/01/2020'}
     permission_required = 'catalog.add_author'
+    success_message = f'Author created successfully!'
 
 
-class AuthorUpdate(PermissionRequiredMixin, UpdateView):
+class AuthorUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
     permission_required = 'catalog.change_author'
+    success_message = f'<%(first_name)s %(last_name)s> has been successfully updated!'
 
 
-class AuthorDelete(PermissionRequiredMixin, DeleteView):
+class AuthorDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Author
     permission_required = 'catalog.delete_author'
     success_url = reverse_lazy('authors')
+    success_message = f'Author deleted!'
 
 # ------------ ADD, REMOVE, CHANGE BOOKS ------------ #
 
 
-class BookCreate(PermissionRequiredMixin, CreateView):
+class BookCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
     permission_required = 'catalog.add_book'
+    success_message = f'Book successfully created!'
 
 
-class BookUpdate(PermissionRequiredMixin, UpdateView):
+class BookUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Book
     fields = '__all__'
     permission_required = 'catalog.change_book'
+    success_message = f'Book successfully updated!'
 
 
-class BookDelete(PermissionRequiredMixin, DeleteView):
+class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Book
     permission_required = 'catalog.delete_book'
     success_url = reverse_lazy('books')
+    success_message = f'Book successfully deleted!'

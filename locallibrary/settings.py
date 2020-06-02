@@ -1,6 +1,7 @@
 
 import dj_database_url
 import os
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,14 +10,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECURITY WARNING: don't run with debug turned on in production!
 SECRET_KEY = os.environ['DJANGO_SK1']
-
 DEBUG = os.environ['DJANGO_DEBUG1'] == 'True'
-# SECRET_KEY = 'VerySecretKey'
 
+# SECRET_KEY = 'VerySecretKey'
 # DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
@@ -31,9 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # My apps
     'catalog',
-    'crispy_forms',
     'users.apps.UsersConfig',
+    # 3rd parties apps
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +132,7 @@ DATABASES['default'].update(db_from_env)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MESSAGE_TAGS = {
+    constants.ERROR: 'danger',
+}

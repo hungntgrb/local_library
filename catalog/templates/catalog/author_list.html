@@ -17,35 +17,36 @@ All Authors {% endblock title %}({{ num_of_authors }})
 
 <hr>
 
+<div class="my-list">
+  <table class="table table-borderless table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in author_list %}
+      <tr class="border-bottom border-dark">
+        <th scope="row" class="align-middle">
+          <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
+        </th>
 
-<table class="table table-borderless table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for author in author_list %}
-    <tr class="border-bottom border-dark d-flex align-items-center justify-content-between">
-      <th scope="row">
-        <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
-      </th>
+        <td class="d-flex justify-content-end">
+          {% if perms.catalog.change_author %}
+          <a href="{% url 'author_update' author.pk %}">{% include '../update_button.html' %}</a>
+          {% endif %}
 
-      <td>
+          {% if perms.catalog.delete_author %}
+          <a href="{% url 'author_delete' author.pk %}">{% include '../delete_button.html' %}</a>
+          {% endif %}
+        </td>
 
-        {% if perms.catalog.change_author %}
-        <a href="{% url 'author_update' author.pk %}">{% include '../update_button.html' %}</a>
-        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-        {% if perms.catalog.delete_author %}
-        <a href="{% url 'author_delete' author.pk %}">{% include '../delete_button.html' %}</a>
-        {% endif %}
-
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
 {% endblock content %}

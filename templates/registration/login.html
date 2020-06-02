@@ -17,16 +17,18 @@
 
 {% endif %}
 
-<form method="POST" action="{% url 'login' %}">
-  {% csrf_token %}
-  {{ form | crispy }}
+<div class="my-list">
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form | crispy }}
 
-  <input class="btn btn-block my-btn" type="submit" value="Login">
-  <input type="hidden" name="next" value="{{ next }}">
-</form>
+    <input class="btn btn-block my-btn" type="submit" value="Login">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
 
-<a href="{% url 'password_reset' %}">
-  <p class="my-3"> Lost password?</p>
-</a>
+  <a href="{% url 'password_reset' %}">
+    <p class="my-3"> Lost password?</p>
+  </a>
+</div>
 
 {% endblock content %}
