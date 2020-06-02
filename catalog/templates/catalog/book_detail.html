@@ -24,15 +24,8 @@ Book Detail
 
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
   <p><strong>Genre:</strong> {{ book.genre.all | join:", " }}</p>
-  <p><strong>Summary:</strong>{{ book.summary }}</p>
+  <p><strong>Summary:</strong> {{ book.summary }}</p>
 </div>
-
-<!-- <div class="row">
-  <h1 class="col-md-8"></h1>
-  
-</div> -->
-
-
 
 <div>
   <h4>Copies</h4>
@@ -58,8 +51,6 @@ Book Detail
     </div>
     {% endfor %}
   </div>
-
-
 
 </div>
 

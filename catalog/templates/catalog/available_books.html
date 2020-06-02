@@ -15,9 +15,9 @@
     {% for book, copies in book_list %}
 
     <div class="card ">
-      <div class="card-header bg-dark" id="headingOne">
+      <div class="card-header bg-dg" id="headingOne">
         <h2 class="mb-0">
-          <button class="btn btn-block text-left font-weight-bold text-light" type="button" data-toggle="collapse"
+          <button class="btn btn-block text-left font-weight-bold text-my" type="button" data-toggle="collapse"
             data-target="#book-{{book.id}}" aria-expanded="true" aria-controls="book-{{book.id}}">
             {{ book }}
           </button>
@@ -50,9 +50,5 @@
 
   </div>
 </div>
-
-
-
-
 
 {% endblock content %}

@@ -10,6 +10,38 @@ body {
   background-color: var(--dark-green);
   color: var(--dark-green);
 }
+/* --- CUSTOM BG & TEXT --- */
+.bg-lg {
+  background-color: var(--light-green);
+}
+.text-lg {
+  color: var(--light-green);
+}
+.bg-dg {
+  background-color: var(--dark-green);
+}
+.text-dg {
+  color: var(--dark-green);
+}
+.bg-my {
+  background-color: var(--my-yellow);
+}
+.text-my {
+  color: var(--my-yellow);
+}
+.bg-lo {
+  background-color: var(--light-orange);
+}
+.text-lo {
+  color: var(--light-orange);
+}
+.bg-do {
+  background-color: var(--dark-orange);
+}
+.text-do {
+  color: var(--dark-orange);
+}
+/* --- END CUSTOM ---*/
 
 .container {
   background-color: var(--my-yellow);

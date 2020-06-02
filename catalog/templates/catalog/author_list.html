@@ -17,61 +17,35 @@ All Authors {% endblock title %}({{ num_of_authors }})
 
 <hr>
 
-<div class="row">
-  {% for author in author_list %}
-  <div class="col-md-6">
-    <div class="card border-dark mb-4 ">
-      <div class="card-header bg-dark ">
-        <h2 class="mb-2 ">
-          <a class="text-light" href="{% url 'author-detail' author.pk %}">{{ author }}</a>
-        </h2>
 
-        <div class="d-flex justify-content-end">
-          {% if perms.catalog.change_author %}
-          <a href="{% url 'author_update' author.pk %}">{% include '../update_button.html' %}</a>
-          {% endif %}
+<table class="table table-borderless table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for author in author_list %}
+    <tr class="border-bottom border-dark d-flex align-items-center justify-content-between">
+      <th scope="row">
+        <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
+      </th>
 
-          {% if perms.catalog.delete_author %}
-          <a href="{% url 'author_delete' author.pk %}">{% include '../delete_button.html' %}</a>
-          {% endif %}
-        </div>
-      </div>
-      <div class="card-body bg-light">
-        <p class="card-text">
-          Born: {{ author.date_of_birth }}
-        </p>
-        <p class="card-text">
-          Died: {{ author.date_of_death }}
-        </p>
+      <td>
 
+        {% if perms.catalog.change_author %}
+        <a href="{% url 'author_update' author.pk %}">{% include '../update_button.html' %}</a>
+        {% endif %}
 
+        {% if perms.catalog.delete_author %}
+        <a href="{% url 'author_delete' author.pk %}">{% include '../delete_button.html' %}</a>
+        {% endif %}
 
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-
-</div>
-
-<!-- {% for author in author_list %}
-
-<div class="row">
-  <h3 class="col-md-7"><a href="{% url 'author-detail' author.pk %}">{{ author }}</a></h3>
-  <div class="col-sm-5">
-    {% if perms.catalog.change_author %}
-    <a class="btn " href="{% url 'author_update' author.pk %}">Update</a>
-    {% endif %}
-    {% if perms.catalog.delete_author %}
-    <a class="btn " href="{% url 'author_delete' author.pk %}">Delete</a>
-    {% endif %}
-  </div>
-</div>
-
-
-<p>Date of Birth: {{ author.date_of_birth }}</p>
-<p>Died: {{ author.date_of_death }}</p>
-<hr>
-
-{% endfor %} -->
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock content %}
