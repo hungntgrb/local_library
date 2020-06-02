@@ -14,14 +14,18 @@
   </div>
 </div>
 
-<hr>
-{% if author.date_of_birth %}
-<p>Born: {{ author.date_of_birth }}</p>
-{% endif %}
+<hr />
 
-{% if author.date_of_death %}
-<p>Died: {{ author.date_of_death }}</p>
-{% endif %}
+
+<p>
+  {% if author.date_of_birth %}
+  <strong>Born: </strong>{{ author.date_of_birth }}
+  {% endif %}
+  {% if author.date_of_death %}
+  <strong class="ml-4">Died: </strong>{{ author.date_of_death }}
+  {% endif %}
+</p>
+
 
 <h5 class="mb-3">Books by author</h5>
 
