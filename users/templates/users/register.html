@@ -4,18 +4,16 @@
 {% block content %}
 
 <div class="my-list">
-  <h1>Create an account</h1>
-
-  <form action="" method="post">
+  <legend class="display-4 border-bottom border-dark pb-2 mb-3">Join today!</legend>
+  <form method="POST">
     {% csrf_token %}
 
     {{ form | crispy }}
 
-    <input class="btn btn-block " type="submit" value="Sign-up">
+    <input class="btn btn-block my-btn" type="submit" value="Sign Up">
 
   </form>
 </div>
-
 
 
 {% endblock content %}

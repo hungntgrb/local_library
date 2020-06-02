@@ -16,40 +16,40 @@ Book List ({{ books_count }})
 {% endif %}
 
 <hr>
-<div class="row">
+<div class="my-list">
 
-  {% for book in book_list %}
-  <div class="col-md-6">
-    <div class="card mb-3">
-      <div class="card-header text-light bg-dark">
-        <a href="{% url 'book-detail' book.pk %}">
-          <h3 class="text-light">{{ book.title }}</h3>
-        </a>
-        <p class="text-muted">Author: {{ book.author }}</p>
-        <div class="d-flex justify-content-end">
-          {% if perms.catalog.change_book %}
-          <a href="{% url 'book_update' book.pk %}">{% include '../update_button.html' %}</a>
-          {% endif %}
-          {% if perms.catalog.delete_book %}
-          <a href="{% url 'book_delete' book.pk %}">{% include 'delete_button.html' %}</a>
-          {% endif %}
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-text">
-        <ul>
-          <li>Summary: {{ book.summary }}</li>
-          <li>ISBN: {{ book.isbn }}</li>
-          <li>Genre: {{ book.display_genre }}</li>
-          <li>Language: {{ book.language.get_name_display }}</li>
-        </ul>
-        </p>
-      </div>
-    </div>
-  </div>
+  <table class="table table-borderless table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in book_list %}
+      <tr class="border-bottom border-dark">
+        <th scope="row">
+          <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a>
+        </th>
+        <td>
+          <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a>
+        </td>
+        <td>
+          <div class="d-flex justify-content-end">
+            {% if perms.catalog.change_book %}
+            <a href="{% url 'book_update' book.pk %}">{% include '../update_button.html' %}</a>
+            {% endif %}
+            {% if perms.catalog.delete_book %}
+            <a href="{% url 'book_delete' book.pk %}">{% include 'delete_button.html' %}</a>
+            {% endif %}
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-
-  {% endfor %}
 </div>
 
 

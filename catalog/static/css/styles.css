@@ -69,10 +69,6 @@ a {
   color: var(--dark-green);
 }
 
-/* .nav-item .active {
-  background-color: var(--my-yellow) !important;
-} */
-
 .page-link {
   background-color: var(--dark-green);
   color: #eee;
@@ -95,7 +91,7 @@ a {
 }
 
 .my-list {
-  max-width: 600px;
+  max-width: 680px;
   margin: 0 auto;
 }
 

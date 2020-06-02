@@ -42,7 +42,7 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 4
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="row">
-  <h1 class="col-md-8">{{ author }}</h1>
-  <div class="col-md-4">
+  <h1 class="col-md-8">Author: <span class="display-4">{{ author }}</span></h1>
+  <div class="col-md-4 d-flex justify-content-end align-items-center">
     {% if perms.catalog.change_author %}
     <a href="{% url 'author_update' author.pk %}">{% include 'update_button.html' %}</a>
     {% endif %}
@@ -23,13 +23,13 @@
 <p>Died: {{ author.date_of_death }}</p>
 {% endif %}
 
-<h4>Books</h4>
+<h5 class="mb-3">Books by author</h5>
 
 <table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Book Title</th>
+      <th scope="col">Title</th>
     </tr>
   </thead>
 

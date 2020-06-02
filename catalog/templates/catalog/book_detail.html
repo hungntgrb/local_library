@@ -24,6 +24,7 @@ Book Detail
 
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
   <p><strong>Genre:</strong> {{ book.genre.all | join:", " }}</p>
+  <p><strong>Language:</strong> {{ book.language.get_name_display }}</p>
   <p><strong>Summary:</strong> {{ book.summary }}</p>
 </div>
 
