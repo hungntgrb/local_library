@@ -1,6 +1,7 @@
 import datetime
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -208,8 +209,12 @@ class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
 
 def search_view(request):
     q = request.GET.get('q')
-    book_results = Book.objects.filter(title__icontains=q)
-    author_results = Author.objects.filter(first_name__icontains=q)
+    book_results = Book.objects.filter(
+        Q(title__icontains=q) | Q(summary__icontains=q)
+    )
+    author_results = Author.objects.filter(
+        Q(first_name__icontains=q) | Q(last_name__icontains=q)
+    )
     context = {
         'books': book_results,
         'authors': author_results,

@@ -4,23 +4,50 @@
 
 <h1 class="display-4 border-bottom border-dark pb-2 mb-3">Search Results</h1>
 
-<h5>Books</h5>
-<ul>
-  {% for book in books %}
-  <li>{{ book }}</li>
-  {% empty %}
-  <p class="text-danger">No books match!</p>
-  {% endfor %}
-</ul>
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-borderless">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Books ({{ books.count }})</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+        <tr class="border-bottom border-dark">
+          <td><a href="{% url 'book-detail' book.pk %}">{{ book }}</a></td>
+        </tr>
+        {% empty %}
+        <tr class="table-info">
+          <td>No books match!</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-<h5>Authors</h5>
-<ul>
-  {% for author in authors %}
-  <li>{{ author }}</li>
-  {% empty %}
-  <p class="text-danger">No authors match!</p>
-  {% endfor %}
-</ul>
+  <div class="col-md-6">
+    <table class="table table-borderless">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Authors ({{ authors.count }})</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for author in authors %}
+        <tr class="border-bottom border-dark">
+          <td><a href="{% url 'author-detail' author.pk %}">{{ author }}</a></td>
+        </tr>
+        {% empty %}
+        <tr class="table-info">
+          <td>No authors match!</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 
 {% endblock content %}

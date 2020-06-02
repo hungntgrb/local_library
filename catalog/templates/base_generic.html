@@ -81,6 +81,7 @@
         </ul>
 
         <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET">
+          {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="q"
             id="search-bar">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
