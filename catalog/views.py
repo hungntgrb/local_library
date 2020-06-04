@@ -72,7 +72,7 @@ def borrow_a_book(request, uid):
             extra_tags='safe'
         )
         return redirect(reverse('avail_books'))
-    elif request.user.bookinstance_set.count() > 3:
+    elif request.user.bookinstance_set.count() >= 3:
         messages.error(
             request, f'You cannot have more than 3 copies at a time. Return one so that you can borrow another.',
             extra_tags='safe'
