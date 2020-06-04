@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="my-list">
+  <h1 class="display-4 mb-3 text-center border-bottom border-dark pb-2">Your email</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input class="btn btn-block my-btn" type="submit" value="Send!">
+  </form>
+</div>
+
+
+{% endblock content %}

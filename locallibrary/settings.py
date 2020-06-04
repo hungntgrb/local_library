@@ -16,8 +16,9 @@ DEBUG = os.environ['DJANGO_DEBUG1'] == 'True'
 # SECRET_KEY = 'VerySecretKey'
 # DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['polar-lake-80686.herokuapp.com', '127.0.0.1']
 
+DEFAULT_DOMAIN = f'http://{ALLOWED_HOSTS[0]}'
 
 # Application definition
 
@@ -123,6 +124,7 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 db_from_env = dj_database_url.config(conn_max_age=500)

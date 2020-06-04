@@ -44,7 +44,7 @@ def index(request):
 
 
 class BookListView(generic.ListView):
-    model = Book
+    queryset = Book.objects.all().order_by('title')
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
@@ -238,6 +238,7 @@ def send_an_email(request):
         os.environ.get('EMAIL_USER1'),
         ['hungnt89@gmail.com', ],
         fail_silently=False,
+        html_message='<h1>Test HTML</h1>',
     )
     messages.success(request, 'Email sent!')
     return redirect(reverse('index'))
