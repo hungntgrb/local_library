@@ -59,12 +59,24 @@ class AvailableBookListView(generic.ListView):
 def borrow_a_book(request, uid):
     book_copy = BookInstance.objects.get(pk=uid)
 
-    borrowing_books = map(
+    currently_borrowing_books = map(
         lambda x: x.book,
         request.user.bookinstance_set.all()
     )
-
-    if book_copy.book not in borrowing_books:
+    # Only borrow 1 copy of a book at one time
+    if book_copy.book in currently_borrowing_books:
+        messages.error(
+            request, f'You are currently borrowing a copy of <a class="alert-link">&lt;{book_copy.book}&gt;</a>.',
+            extra_tags='safe'
+        )
+        return redirect(reverse('avail_books'))
+    elif request.user.bookinstance_set.count() > 3:
+        messages.error(
+            request, f'You cannot have more than 3 copies at a time. Return one so that you can borrow another.',
+            extra_tags='safe'
+        )
+        return redirect(reverse('avail_books'))
+    else:
         book_copy.status = 'o'
         book_copy.borrower = request.user
         book_copy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
@@ -74,11 +86,6 @@ def borrow_a_book(request, uid):
         messages.success(
             request, f'You have successfully borrowed <a class="alert-link">&lt;{book_copy.book}&gt;</a>. <br/><a class="alert-link" href="{on_shelf}">Borrow another one?</a>', extra_tags='safe')
         return redirect(reverse('my-borrowed'))
-    messages.error(
-        request, f'You are currently borrowing a copy of <a class="alert-link">&lt;{book_copy.book}&gt;</a>.',
-        extra_tags='safe'
-    )
-    return redirect(reverse('avail_books'))
 
 
 def return_a_book(request, uid):
