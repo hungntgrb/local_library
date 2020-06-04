@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
@@ -234,8 +235,8 @@ def send_an_email(request):
     send_mail(
         'Hello from Django!',
         'A very interesing body.',
-        'hungnt89@gmail.com',
-        ['hungnt891@gmail.com', ],
+        os.environ.get('EMAIL_USER1'),
+        ['hungnt89@gmail.com', ],
         fail_silently=False,
     )
     messages.success(request, 'Email sent!')
