@@ -29,4 +29,5 @@ urlpatterns = [
     path('book/<uuid:uid>/return/', views.return_a_book, name='return_a_book'),
     # ------- Search ---------
     path('search-result/', views.search_view, name='search_result'),
+    path('send-email/', views.send_an_email, name='send_email'),
 ]

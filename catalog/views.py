@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import send_mail
 
 from .models import Book, Author, BookInstance, Genre
 from .forms import RenewBookForm, RenewBookModelForm
@@ -227,3 +228,15 @@ def search_view(request):
         'authors': author_results,
     }
     return render(request, 'catalog/search_result.html', context)
+
+
+def send_an_email(request):
+    send_mail(
+        'Hello from Django!',
+        'A very interesing body.',
+        'hungnt89@gmail.com',
+        ['hungnt891@gmail.com', ],
+        fail_silently=False,
+    )
+    messages.success(request, 'Email sent!')
+    return redirect(reverse('index'))
