@@ -5,24 +5,48 @@ Home Page
 {% endblock title %}
 
 {% block content %}
-<h1>Library Home Page</h1>
-<p>Welcome to Local-Library, a website developed following tutorials on <em>Mozilla Developer Network</em>!</p>
-<p>You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% else %}{% endif %}!</p>
-<h2>Dynamic Content</h2>
-<p>The library has the following records:</p>
-<ul>
-  <li><strong>Books:</strong> {{ num_books }}</li>
-  <li><strong>Copies:</strong> {{ num_instances }}</li>
-  <li><strong>Copies Available:</strong> {{ num_instances_available }}</li>
-  <li><strong>Authors:</strong> {{ num_authors }}</li>
-  <li><strong>Genres:</strong> {{ num_genres }}</li>
-  <li><strong>Books have 'Wild' in title:</strong> {{ wild_books.count }}
-    <ul>
-      {% for wild_book in wild_books %}
-      <li>{{ wild_book.title }}</li>
-      {% endfor %}
-    </ul>
-  </li>
 
-</ul>
+<div class="jumbotron">
+  <div class="my-list">
+    <h1 class="display-4">Welcome to Hung's Library!</h1>
+    <p class="lead">This website was developed following tutorials on <em>Mozilla Developer Network</em>.</p>
+    <hr class="my-4">
+
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th colspan="2" class="text-center">Here we have</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Books</th>
+          <td class="so-lieu">{{ num_books }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Copies</th>
+          <td class="so-lieu">{{ num_instances }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Copies Available</th>
+          <td class="so-lieu">{{ num_instances_available }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Authors</th>
+          <td class="so-lieu">{{ num_authors }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Genres</th>
+          <td class="so-lieu">{{ num_genres }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card bg-light">
+  <div class="card-body text-center">
+    You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
+  </div>
+</div>
+
 {% endblock content %}

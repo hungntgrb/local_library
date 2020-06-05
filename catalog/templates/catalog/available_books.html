@@ -31,13 +31,16 @@
           <ul class="list-group list-group-flush">
             {% for copy_ in copies %}
             <li class="list-group-item d-flex justify-content-between">
-              <span><strong>Id:</strong> {{ copy_.pk|truncatechars:23 }}</span>
+              <div class="d-flex flex-column">
+                <span><strong>Imprint:</strong> {{ copy_.imprint }}</span>
+                <span><strong>Id:</strong> {{ copy_.id|truncatechars:12 }}</span>
+              </div>
 
+              {% if user.is_authenticated %}
               <a href="{% url 'borrow_a_book' copy_.pk %}">
-                {% if user.is_authenticated %}
                 <span class="btn my-btn ml-2">Borrow</span>
-                {% endif %}
               </a>
+              {% endif %}
             </li>
             {% endfor %}
           </ul>

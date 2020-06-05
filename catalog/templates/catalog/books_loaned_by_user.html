@@ -10,7 +10,7 @@
 <table class="table table-borderless">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
+
       <th scope="col">Book</th>
       <th scope="col">Due date</th>
       <th scope="col"></th>
@@ -18,14 +18,15 @@
   </thead>
 
   {% for bookInst in object_list %}
-  <tr>
-    <th scope="row">{{ forloop.counter }}</th>
-    <td><a href="{% url 'book-detail' bookInst.book.pk %}">{{ bookInst.book.title }} </a></th>
+
+  <tr class="border-bottom border-dark">
+    <th scope="row"><a href="{% url 'book-detail' bookInst.book.pk %}">{{ bookInst.book.title }} </a></th>
     <td class="{% if bookInst.is_overdue %}text-danger{% endif %}">
-      {{ bookInst.due_back }}<span class="text-muted ml-3">({{ bookInst.days_left }} days left)</span>
+      {{ bookInst.due_back }}<span class="text-muted ml-2">({{ bookInst.days_left }} days left)</span>
     </td>
     <td><a class="btn my-btn" href="{% url 'return_a_book' bookInst.pk %}">Return</a></td>
   </tr>
+
   {% endfor %}
 
 </table>

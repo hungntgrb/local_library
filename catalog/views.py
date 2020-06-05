@@ -24,7 +24,6 @@ def index(request):
         status__exact='a').count()
     num_authors = Author.objects.count()
     num_genres = Genre.objects.count()
-    wild_books = Book.objects.filter(title__icontains='wild')
 
     # Get the visit count from session
     # del request.session['num_visits']
@@ -37,7 +36,6 @@ def index(request):
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
         'num_genres': num_genres,
-        'wild_books': wild_books,
         'num_visits': num_visits,
     }
     return render(request, 'index.html', context=context)
@@ -68,13 +66,14 @@ def borrow_a_book(request, uid):
     # Only borrow 1 copy of a book at one time
     if book_copy.book in currently_borrowing_books:
         messages.error(
-            request, f'You are currently borrowing a copy of <a class="alert-link">&lt;{book_copy.book}&gt;</a>.',
+            request, f'You are currently borrowing a copy of <a class="alert-link">{book_copy.book}</a>.',
             extra_tags='safe'
         )
         return redirect(reverse('avail_books'))
     elif request.user.bookinstance_set.count() >= 3:
+        my_books = reverse('my-borrowed')
         messages.error(
-            request, f'You cannot have more than 3 copies at a time. Return one so that you can borrow another.',
+            request, f'You cannot have more than 3 copies at a time. <a href="{my_books}" class="alert-link">Return one</a> so that you can borrow another.',
             extra_tags='safe'
         )
         return redirect(reverse('avail_books'))
@@ -86,7 +85,7 @@ def borrow_a_book(request, uid):
         # Display message
         on_shelf = reverse('avail_books')
         messages.success(
-            request, f'You have successfully borrowed <a class="alert-link">&lt;{book_copy.book}&gt;</a>. <br/><a class="alert-link" href="{on_shelf}">Borrow another one?</a>', extra_tags='safe')
+            request, f'You have successfully borrowed <a class="alert-link">{book_copy.book}</a>. <br/><a class="alert-link" href="{on_shelf}">Borrow another one?</a>', extra_tags='safe')
         return redirect(reverse('my-borrowed'))
 
 
@@ -98,7 +97,7 @@ def return_a_book(request, uid):
     book_name = book_copy.first().book.title
 
     messages.success(request,
-                     f'You have returned <a class="alert-link" href="#">&lt;{book_name}&gt;</a>.',
+                     f'You have returned <a class="alert-link">{book_name}</a>.',
                      extra_tags='safe')
 
     return redirect(reverse('my-borrowed'))

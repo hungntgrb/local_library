@@ -99,3 +99,9 @@ footer {
   background-color: var(--light-orange);
   padding: 16px;
 }
+
+.so-lieu {
+  background-color: lightsteelblue;
+  font-weight: bold;
+  text-align: center;
+}

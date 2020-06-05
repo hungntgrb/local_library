@@ -5,6 +5,7 @@
 
 <div class="my-list">
   <h1 class="display-4 mb-3 text-center border-bottom border-dark pb-2">Your email</h1>
+  <p>A link to register will be sent to this email.</p>
   <form action="" method="post">
     {% csrf_token %}
     {{ form | crispy }}
