@@ -91,7 +91,10 @@
 
     </nav>
 
-    <div class="container">
+    {% block banner %}
+    {% endblock banner %}
+
+    <div id="main-container" class="container my-container">
       <!------ MESSAGE SECTION -------->
       {% if messages %}
 
@@ -144,7 +147,7 @@
 
       <!-- ---------- PAGINATION --------------->
       {% if is_paginated %}
-      <nav aria-label="Pages">
+      <nav aria-label="Pages" class="mt-3">
         <ul class="pagination justify-content-center">
           {% if page_obj.has_previous %}
           <li class="page-item">
@@ -172,6 +175,9 @@
     <footer class="text-center my-credit">
       Written with Django &copy; <strong>Nguyễn Thanh Hùng</strong>, 2020
     </footer>
+
+    {% block extra_script %}
+    {% endblock extra_script %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

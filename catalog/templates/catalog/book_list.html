@@ -18,7 +18,7 @@ Book List ({{ books_count }})
 <hr>
 <div class="my-list">
 
-  <table class="table table-borderless table-hover">
+  <table class="table table-borderless table-hover table-light">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Title</th>
@@ -28,7 +28,7 @@ Book List ({{ books_count }})
     </thead>
     <tbody>
       {% for book in book_list %}
-      <tr class="border-bottom border-dark">
+      <tr class="border-bottom border-light">
         <th scope="row">
           <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a>
         </th>

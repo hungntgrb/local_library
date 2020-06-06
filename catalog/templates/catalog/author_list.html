@@ -18,7 +18,7 @@ All Authors {% endblock title %}({{ num_of_authors }})
 <hr>
 
 <div class="my-list">
-  <table class="table table-borderless table-hover">
+  <table class="table table-light table-borderless table-hover">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Name</th>
@@ -27,7 +27,7 @@ All Authors {% endblock title %}({{ num_of_authors }})
     </thead>
     <tbody>
       {% for author in author_list %}
-      <tr class="border-bottom border-dark">
+      <tr class="border-bottom border-light">
         <th scope="row" class="align-middle">
           <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
         </th>

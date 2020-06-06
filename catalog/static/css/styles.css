@@ -43,7 +43,7 @@ body {
 }
 /* --- END CUSTOM ---*/
 
-.container {
+.my-container {
   background-color: var(--my-yellow);
   min-height: 100vh;
   padding-top: 4rem !important;

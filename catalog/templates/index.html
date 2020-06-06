@@ -4,9 +4,8 @@
 Home Page
 {% endblock title %}
 
-{% block content %}
-
-<div class="jumbotron">
+{% block banner %}
+<div class="jumbotron mt-5 mt-sm-2">
   <div class="my-list">
     <h1 class="display-4">Welcome to Hung's Library!</h1>
     <p class="lead">This website was developed following tutorials on <em>Mozilla Developer Network</em>.</p>
@@ -20,7 +19,7 @@ Home Page
       </thead>
       <tbody>
         <tr>
-          <th scope="row">Books</th>
+          <th scope="row"><a href="{% url 'books' %}">Books</a></th>
           <td class="so-lieu">{{ num_books }}</td>
         </tr>
         <tr>
@@ -28,11 +27,11 @@ Home Page
           <td class="so-lieu">{{ num_instances }}</td>
         </tr>
         <tr>
-          <th scope="row">Copies Available</th>
+          <th scope="row"><a href="{% url 'avail_books' %}">Copies Available</a></th>
           <td class="so-lieu">{{ num_instances_available }}</td>
         </tr>
         <tr>
-          <th scope="row">Authors</th>
+          <th scope="row"><a href="{% url 'authors' %}">Authors</a></th>
           <td class="so-lieu">{{ num_authors }}</td>
         </tr>
         <tr>
@@ -43,10 +42,17 @@ Home Page
     </table>
   </div>
 </div>
+
 <div class="card bg-light">
   <div class="card-body text-center">
     You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
   </div>
 </div>
 
-{% endblock content %}
+{% endblock banner %}
+
+{% block extra_script %}
+<script>
+  document.getElementById("main-container").remove();
+</script>
+{% endblock extra_script %}
