@@ -48,7 +48,7 @@
 
         <li class="nav-item"><a class="nav-link text-white" href="{% url 'login' %}?next={{request.path}}">Login</a>
         </li>
-        <li class="nav-item"> <a class="nav-link text-white" href="{% url 'pre-register' %}">Register</a></li>
+        <li class="nav-item"> <a class="nav-link text-white" href="{% url 'register' %}">Register</a></li>
 
         {% endif %}
       </ul>
@@ -65,9 +65,9 @@
               href="{% url 'index' %}">Home</a></li>
 
           <li class="nav-item {% if request.resolver_match.url_name == 'books' %}active{% endif %}"><a class="nav-link"
-              href="{% url 'books' %}">All books</a></li>
+              href="{% url 'books' %}">Books</a></li>
           <li class="nav-item {% if request.resolver_match.url_name == 'authors' %}active{% endif %}"><a
-              class="nav-link" href="{% url 'authors' %}">All authors</a></li>
+              class="nav-link" href="{% url 'authors' %}">Authors</a></li>
           <li class="nav-item {% if request.resolver_match.url_name == 'avail_books' %}active{% endif %}"><a
               class="nav-link" href="{% url 'avail_books' %}">On Shelf</a></li>
 
@@ -82,7 +82,7 @@
 
         <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET">
           {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="q"
+          <input class="form-control mr-sm-2" type="search" placeholder="vd. harry potter" aria-label="Search" name="q"
             id="search-bar">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -173,7 +173,7 @@
     <!--End Container-->
 
     <footer class="text-center my-credit">
-      Written with Django &copy; <strong>Nguyễn Thanh Hùng</strong>, 2020
+      Written with <span class="django">Django</span> &copy; <strong>Nguyễn Thanh Hùng</strong>, 2020
     </footer>
 
     {% block extra_script %}

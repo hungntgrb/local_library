@@ -4,6 +4,7 @@
   --my-yellow: #e9c46a;
   --light-orange: #f4a261;
   --dark-orange: #e76f51;
+  --black-blue: #343a40;
 }
 
 body {
@@ -96,8 +97,16 @@ a {
 }
 
 footer {
-  background-color: var(--light-orange);
-  padding: 16px;
+  background-color: var(--black-blue);
+  color: lightsteelblue;
+  padding: 1.1rem;
+  letter-spacing: 0.1em;
+}
+.django {
+  color: var(--light-green);
+  font-weight: bold;
+  font-size: 1.2em;
+  letter-spacing: initial;
 }
 
 .so-lieu {

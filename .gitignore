@@ -135,3 +135,5 @@ dmypy.json
 locallibrary/settings1.py
 staticfiles/
 form_demo.html
+venv2/
+.vscode
