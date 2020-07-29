@@ -137,3 +137,7 @@ staticfiles/
 form_demo.html
 venv2/
 .vscode
+node_modules/
+package.json
+package-lock.json
+css/
