@@ -144,4 +144,5 @@ package-lock.json
 css/
 styles111.css
 *.scss
+pytest.ini
 
