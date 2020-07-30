@@ -1,6 +1,5 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+$primary: #0c2b45;
 
-body {
-  background-color: green;
-  color: red;
-}
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./styles.scss";
+//
