@@ -115,7 +115,7 @@
       {% endfor %}
       {% endif %}
       <!------ END MESSAGE SECTION -------->
-      <!------ ERRORS SECTION ------>
+      <!------ ALERT SECTION ------>
       {% if form.errors %}
       {% for field in form %}
       {% for error in field.errors %}
@@ -136,11 +136,11 @@
       </div>
       {% endfor %}
       {% endif %}
-      <!------ END ERRORS SECTION ------>
-      <h1>
+      <!------ END ALERT SECTION ------>
+      <h1 class="tieu-de-page">
         {% block heading %}
         {% endblock heading %}
-      </h1>
+      </h1 class="tieu-de-page">
 
       {% block content %}
       {% endblock content %}

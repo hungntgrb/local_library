@@ -57,6 +57,13 @@ body {
   font-weight: bold;
 }
 
+.jumbotron .display-4 {
+  text-align: center;
+}
+.tieu-de-page {
+  text-align: center;
+}
+
 .bg-success,
 .bg-danger {
   color: #eee;

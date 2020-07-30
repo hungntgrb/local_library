@@ -43,7 +43,7 @@ class AuthorListViewTest(TestCase):
         self.assertTrue(len(res.context["author_list"]) == 3)
 
     def test_all_authors_are_displayed(self):
-        res = self.client.get(reverse("authors") + "?page=2")
+        res = self.client.get(reverse("authors") + "?page=1")
         self.assertEqual(res.status_code, 200)
         self.assertTrue("is_paginated" in res.context)
         self.assertTrue(res.context["is_paginated"] == True)
@@ -95,7 +95,7 @@ class LoanedBookInstanceByUserListViewTest(TestCase):
 
     def test_redirect_if_not_logged_in(self):
         res = self.client.get(reverse("my-borrowed"))
-        self.assertRedirects(res, "/accounts/login/?next=/catalog/mybooks/")
+        self.assertRedirects(res, "/users/login/?next=/catalog/mybooks/")
 
     def test_logged_in_uses_correct_template(self):
         login = self.client.login(username="testuser1", password="Xjaoemgn172fh")
@@ -209,7 +209,7 @@ class RenewBookInstancesViewTest(TestCase):
             reverse("renew-book-librarian", kwargs={"pk": self.test_bookinstance1.pk})
         )
         self.assertEqual(res.status_code, 302)
-        self.assertTrue(res.url.startswith("/accounts/login/"))
+        self.assertTrue(res.url.startswith("/users/login/"))
 
     def test_redirect_if_logged_in_but_not_have_perm(self):
         login = self.client.login(username="testuser1", password="20026069c85470962")

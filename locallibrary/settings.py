@@ -8,8 +8,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ["DJANGO_SK1"]
 DEBUG = os.environ["DJANGO_DEBUG1"] == "True"
 
-# SECRET_KEY = "VerySecretKey"
-# DEBUG = True
 
 ALLOWED_HOSTS = ["polar-lake-80686.herokuapp.com", "127.0.0.1"]
 
