@@ -132,6 +132,7 @@ dmypy.json
 *.bak
 # Database
 *.sqlite3
+# Mine
 locallibrary/settings1.py
 staticfiles/
 form_demo.html
@@ -142,3 +143,5 @@ package.json
 package-lock.json
 css/
 styles111.css
+*.scss
+
