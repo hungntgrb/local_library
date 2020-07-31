@@ -8,7 +8,7 @@
 {% if object_list %}
 
 <table class="table table-borderless">
-  <thead class="thead-dark">
+  <thead class="bg-green-2">
     <tr>
 
       <th scope="col">Book</th>
@@ -24,7 +24,7 @@
     <td class="{% if bookInst.is_overdue %}text-danger{% endif %}">
       {{ bookInst.due_back }}<span class="text-muted ml-2">({{ bookInst.days_left }} days left)</span>
     </td>
-    <td><a class="btn btn-primary" href="{% url 'return_a_book' bookInst.pk %}">Return</a></td>
+    <td><a class="btn btn-brown-1" href="{% url 'return_a_book' bookInst.pk %}">Return</a></td>
   </tr>
 
   {% endfor %}

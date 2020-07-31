@@ -8,15 +8,13 @@
 
     <title>Local Library - {% block title %}{% endblock title %}</title>
 
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'styles111.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'styles.css' %}"> -->
   </head>
 
   <body>
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark nav-bg">
+    <nav class="navbar fixed-top navbar-expand-lg nav-bg">
       <a class="navbar-brand" href="/">
         <svg class="bi bi-book mr-2" width="1.4em" height="1.4em" viewBox="0 0 16 16" fill="currentColor"
           xmlns="http://www.w3.org/2000/svg">
@@ -33,8 +31,8 @@
         {% if user.is_authenticated %}
 
         <li class="nav-item dropdown">
-          <a href="#" class="nav-link text-white dropdown-toggle" id="userDropdown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+          <a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             Chao <strong>{{ user.get_username }}</strong>
           </a>
 
@@ -47,9 +45,9 @@
 
         {% else %}
 
-        <li class="nav-item"><a class="nav-link text-white" href="{% url 'login' %}?next={{request.path}}">Login</a>
+        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={{request.path}}">Login</a>
         </li>
-        <li class="nav-item"> <a class="nav-link text-white" href="{% url 'register' %}">Register</a></li>
+        <li class="nav-item"> <a class="nav-link" href="{% url 'register' %}">Register</a></li>
 
         {% endif %}
       </ul>
@@ -80,12 +78,12 @@
             </div>
           </li>
         </ul>
-
+        <!-- SEARCH BAR -->
         <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET">
           {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" placeholder="vd. harry potter" aria-label="Search" name="q"
+          <input class="form-control mr-sm-2" type="search" placeholder="vd. Harry Potter" aria-label="Search" name="q"
             id="search-bar">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-green-1 my-2 my-sm-0" type="submit">Search</button>
         </form>
 
       </div>

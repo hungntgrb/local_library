@@ -12,14 +12,14 @@ Book List ({{ books_count }})
 {% block content %}
 
 {% if perms.catalog.add_book %}
-<a href="{% url 'book_create' %}" class="btn btn-primary btn-center">Add a Book</a>
+<a href="{% url 'book_create' %}" class="btn btn-brown-1 btn-center">Add a Book</a>
 {% endif %}
 
 <hr>
 <div class="my-list">
 
-  <table class="table table-borderless table-hover table-light">
-    <thead class="thead-dark">
+  <table class="table table-borderless table-hover table-green-1">
+    <thead class="bg-green-2">
       <tr>
         <th scope="col">Title</th>
         <th scope="col">Author</th>

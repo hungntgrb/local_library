@@ -9,41 +9,54 @@
   --black-blue: #343a40;
   --bgPrimary: rgb(46, 185, 255);
   --bgSecondary: rgb(255, 235, 85);
-  --textPrimary: hsl(219, 76%, 22%);
-  --textSecondary: rgb(210, 226, 255);
+  --textPrimary: hsl(156, 58%, 23%);
+  --textSecondary: rgb(168, 214, 181);
+  /* ------ */
+  --brown-1: #cb997e;
+  --brown-2: #ddbea9;
+  --brown-3: #eddcd2;
+  --brown-4: #fff1e6;
+  --green-1: #a5a58d;
+  --green-2: #b7b7a4;
+  --green-3: #f0efeb;
 }
 
 body {
-  background-color: var(--bgPrimary);
-  color: var(--dark-green);
+  background-color: var(--green-1);
+  color: var(--textPrimary) !important;
 }
 
 .my-container {
-  background-color: var(--bgSecondary);
+  background-color: var(--green-3);
   min-height: 100vh;
   padding-top: 4rem !important;
   padding-bottom: 2rem !important;
 }
 
-.my-btn {
-  background-color: var(--dark-green);
-  color: #eee;
-  font-weight: bold;
-}
-
 .jumbotron .display-4 {
-  text-align: center;
-  font-family: "Rowdies", cursive;
-}
-.tieu-de-page {
   text-align: center;
   font-family: "Rowdies", cursive;
   color: var(--textPrimary);
 }
+.tieu-de-page {
+  text-align: center;
+  font-family: "Rowdies", cursive;
+}
 
 .nav-bg {
-  background-color: var(--textPrimary);
+  background-color: var(--brown-1);
 }
+.nav-link {
+  &:hover {
+    color: var(--green-3);
+  }
+}
+.navbar-brand {
+  &:hover {
+    color: var(--green-3);
+  }
+}
+
 .bg-success,
 .bg-danger {
   color: #eee;
@@ -59,7 +72,7 @@ body {
 }
 
 .text-accor {
-  color: var(--textSecondary);
+  color: var(--dark-green);
 }
 
 a {
@@ -67,14 +80,8 @@ a {
 }
 
 .page-link {
-  background-color: var(--dark-green);
+  background-color: var(--brown-1);
   color: #eee;
-}
-
-.sidebar-nav {
-  margin-top: 20px;
-  padding: 0;
-  list-style: None;
 }
 
 .copies {
@@ -93,8 +100,8 @@ a {
 }
 
 footer {
-  background-color: var(--textPrimary);
-  color: var(--textSecondary);
+  background-color: var(--brown-1);
+  color: var(--textPrimary);
   padding: 1.1rem;
   letter-spacing: 0.1em;
   display: flex;
@@ -105,6 +112,7 @@ footer {
 .django {
   padding: 0.2em 0.5em;
   background-color: #245124;
+  background-color: var(--textPrimary);
   color: white;
   border: 1px solid #ccc;
   border-radius: 0.3em;
