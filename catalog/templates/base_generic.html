@@ -11,12 +11,12 @@
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
-    <link rel="stylesheet" href="{% static 'styles111.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'styles111.css' %}"> -->
   </head>
 
   <body>
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark nav-bg">
       <a class="navbar-brand" href="/">
         <svg class="bi bi-book mr-2" width="1.4em" height="1.4em" viewBox="0 0 16 16" fill="currentColor"
           xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +116,7 @@
       {% endfor %}
       {% endif %}
       <!------ END MESSAGE SECTION -------->
-      <!------ ALERT SECTION ------>
+      <!------ FORM ERRORS SECTION ------>
       {% if form.errors %}
       {% for field in form %}
       {% for error in field.errors %}
@@ -137,11 +137,11 @@
       </div>
       {% endfor %}
       {% endif %}
-      <!------ END ALERT SECTION ------>
+      <!------ END FORM ERRORS SECTION ------>
       <h1 class="tieu-de-page">
         {% block heading %}
         {% endblock heading %}
-      </h1 class="tieu-de-page">
+      </h1>
 
       {% block content %}
       {% endblock content %}
@@ -171,9 +171,9 @@
       <!------------ END PAGINATION --------------->
 
     </div>
-    <!--End Container-->
+    <!---- End Container ---->
 
-    <footer class="">
+    <footer>
       <div>Written with <span class="django">Django</span></div>
       <div class="my-name"><strong>Nguyễn Thanh Hùng</strong> &copy; 2020</div>
     </footer>

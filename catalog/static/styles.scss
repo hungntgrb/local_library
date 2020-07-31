@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Rowdies&display=swap");
+
 :root {
   --dark-green: #264653;
   --light-green: #2a9d8f;
@@ -5,19 +7,19 @@
   --light-orange: #f4a261;
   --dark-orange: #e76f51;
   --black-blue: #343a40;
-  --bgPrimary: rgb(9, 56, 9);
-  --bgSecondary: rgb(245, 230, 149);
-  --textPrimary: rgb(6, 20, 46);
-  --textSecondary: rgb(172, 196, 236);
+  --bgPrimary: rgb(46, 185, 255);
+  --bgSecondary: rgb(255, 235, 85);
+  --textPrimary: hsl(219, 76%, 22%);
+  --textSecondary: rgb(210, 226, 255);
 }
 
 body {
-  background-color: var(--dark-green);
+  background-color: var(--bgPrimary);
   color: var(--dark-green);
 }
 
 .my-container {
-  background-color: var(--my-yellow);
+  background-color: var(--bgSecondary);
   min-height: 100vh;
   padding-top: 4rem !important;
   padding-bottom: 2rem !important;
@@ -31,11 +33,17 @@ body {
 
 .jumbotron .display-4 {
   text-align: center;
+  font-family: "Rowdies", cursive;
 }
 .tieu-de-page {
   text-align: center;
+  font-family: "Rowdies", cursive;
+  color: var(--textPrimary);
 }
 
+.nav-bg {
+  background-color: var(--textPrimary);
+}
 .bg-success,
 .bg-danger {
   color: #eee;
@@ -43,6 +51,15 @@ body {
 
 .bg-warning {
   color: #222;
+}
+.btn-center {
+  display: block;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.text-accor {
+  color: var(--textSecondary);
 }
 
 a {
@@ -76,17 +93,20 @@ a {
 }
 
 footer {
-  background-color: var(--black-blue);
-  color: lightsteelblue;
+  background-color: var(--textPrimary);
+  color: var(--textSecondary);
   padding: 1.1rem;
   letter-spacing: 0.1em;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 .django {
   padding: 0.2em 0.5em;
   background-color: #245124;
   color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 0.3em;
   font-weight: bold;
   font-size: 1.2em;
@@ -97,4 +117,12 @@ footer {
   background-color: lightsteelblue;
   font-weight: bold;
   text-align: center;
+}
+.my-name {
+  margin: 0.5em 0 0;
+}
+@media screen and (min-width: 450px) {
+  .my-name {
+    margin: 0 0.5em;
+  }
 }

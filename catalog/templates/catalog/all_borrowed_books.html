@@ -1,10 +1,12 @@
 {% extends 'base_generic.html' %}
 
+{% block heading %}
+All Borrowed Books
+{% endblock heading %}
+
 {% block content %}
 
-<h1>All Borrowed Books</h1>
-
-<p>Only available to Librarians</p>
+<p class="text-center">Only available to Librarians</p>
 
 {% if object_list %}
 <table class="table table-borderless">
