@@ -141,8 +141,6 @@ venv2/
 node_modules/
 package.json
 package-lock.json
-styles111.css
-main.scss
-styles.scss
+*.scss
 pytest.ini
 
