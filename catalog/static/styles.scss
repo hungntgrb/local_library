@@ -5,10 +5,10 @@
   --light-orange: #f4a261;
   --dark-orange: #e76f51;
   --black-blue: #343a40;
-  --bgPrimary: rgb(18, 64, 18);
-  --bgSecondary: rgb(159, 35, 35);
-  --textPrimary: purple;
-  --textSecondary: orange;
+  --bgPrimary: rgb(9, 56, 9);
+  --bgSecondary: rgb(245, 230, 149);
+  --textPrimary: rgb(6, 20, 46);
+  --textSecondary: rgb(172, 196, 236);
 }
 
 body {
@@ -80,6 +80,7 @@ footer {
   color: lightsteelblue;
   padding: 1.1rem;
   letter-spacing: 0.1em;
+  display: flex;
 }
 .django {
   padding: 0.2em 0.5em;
