@@ -50,6 +50,8 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+*.ini
+
 
 # Translations
 *.mo
@@ -141,6 +143,6 @@ venv2/
 node_modules/
 package.json
 package-lock.json
-*.scss
+main.scss
+styles.scss
 pytest.ini
-
