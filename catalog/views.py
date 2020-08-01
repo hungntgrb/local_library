@@ -113,7 +113,7 @@ class BooksLoanedByUserListView(LoginRequiredMixin, generic.ListView):
 
     # model = BookInstance
     paginate_by = 10
-    template_name = "catalog/books_loaned_by_user.html"
+    template_name = "catalog/my-books.html"
 
     def get_queryset(self):
         return (

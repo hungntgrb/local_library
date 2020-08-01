@@ -102,7 +102,7 @@ class LoanedBookInstanceByUserListViewTest(TestCase):
         res = self.client.get(reverse("my-borrowed"))
         self.assertTrue(str(res.context["user"]) == "testuser1")
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, "catalog/books_loaned_by_user.html")
+        self.assertTemplateUsed(res, "catalog/my-books.html")
 
     def test_only_borrowed_books_displayed(self):
         login = self.client.login(username="testuser1", password="Xjaoemgn172fh")

@@ -1,10 +1,13 @@
 {% extends 'base_generic.html' %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block heading %}
+Join today!
+{% endblock heading %}
 
+{% block content %}
+<hr />
 <div class="my-list">
-  <legend class="display-4 border-bottom border-dark pb-2 mb-3">Join today!</legend>
   <form method="POST">
     {% csrf_token %}
 

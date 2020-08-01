@@ -1,8 +1,12 @@
 {% extends 'base_generic.html' %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block heading %}
+Login
+{% endblock heading %}
 
+{% block content %}
+<hr>
 {% if next %}
 
 {% if user.is_authenticated %}
