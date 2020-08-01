@@ -25,7 +25,9 @@ INSTALLED_APPS = [
     # My apps
     "catalog",
     "users.apps.UsersConfig",
+    "api.apps.ApiConfig",
     # 3rd parties apps
+    "rest_framework",
     "crispy_forms",
 ]
 
