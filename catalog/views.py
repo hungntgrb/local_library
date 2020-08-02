@@ -17,6 +17,30 @@ from .models import Book, Author, BookInstance, Genre
 from .forms import RenewBookForm, RenewBookModelForm
 
 
+class HelperFunctions:
+    def userCurrentlyBorrowed_3_Books(self, request):
+        return request.user.bookinstance_set.count() == 3
+
+    def userCurrentlyBorrowingThatBook(self, request, uid):
+        bookCopy = BookInstance.objects.get(pk=uid)
+        userIsHaving = map(lambda x: x.book, request.user.bookinstance_set.all())
+        return bookCopy.book in userIsHaving
+
+    def errorMsg_HTML_Safe(self, request, msg):
+        messages.error(
+            request, msg, extra_tags="safe",
+        )
+
+    def setTheBookIsNotAvailableForTheNext_3_Weeks(self, request, bookCopy):
+        bookCopy.status = "o"
+        bookCopy.borrower = request.user
+        bookCopy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
+        bookCopy.save()
+
+
+hf = HelperFunctions()
+
+
 def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
@@ -58,30 +82,22 @@ class AvailableBookListView(generic.ListView):
 def borrow_a_book(request, uid):
     book_copy = BookInstance.objects.get(pk=uid)
 
-    currently_borrowing_books = map(
-        lambda x: x.book, request.user.bookinstance_set.all()
-    )
     # Only borrow 1 copy of a book at one time
-    if book_copy.book in currently_borrowing_books:
-        messages.error(
+    if hf.userCurrentlyBorrowingThatBook(request, uid):
+        hf.errorMsg_HTML_Safe(
             request,
             f'You are currently borrowing a copy of <a class="alert-link">{book_copy.book}</a>.',
-            extra_tags="safe",
         )
         return redirect(reverse("avail_books"))
-    elif request.user.bookinstance_set.count() >= 3:
+    elif hf.userCurrentlyBorrowed_3_Books(request):
         my_books = reverse("my-borrowed")
-        messages.error(
+        hf.errorMsg_HTML_Safe(
             request,
             f'You cannot have more than 3 copies at a time. <a href="{my_books}" class="alert-link">Return one</a> so that you can borrow another.',
-            extra_tags="safe",
         )
         return redirect(reverse("avail_books"))
     else:
-        book_copy.status = "o"
-        book_copy.borrower = request.user
-        book_copy.due_back = datetime.date.today() + datetime.timedelta(weeks=3)
-        book_copy.save()
+        hf.setTheBookIsNotAvailableForTheNext_3_Weeks(request, book_copy)
         # Display message
         on_shelf = reverse("avail_books")
         messages.success(
@@ -183,7 +199,7 @@ def renew_book_librarian(request, pk):
 class AuthorCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Author
     fields = "__all__"
-    initial = {"date_of_death": "01/01/2020"}
+    initial = {"date_of_death": "02/01/2020"}
     permission_required = "catalog.add_author"
     success_message = f"Author created successfully!"
 
@@ -202,7 +218,7 @@ class AuthorDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = f"Author deleted!"
 
 
-# ------------ ADD, REMOVE, CHANGE BOOKS ------------ #
+# ------------ CREATE, UPDATE, DELETE BOOK ------------ #
 
 
 class BookCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
