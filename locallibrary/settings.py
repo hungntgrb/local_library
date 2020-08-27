@@ -9,7 +9,7 @@ SECRET_KEY = os.environ["DJANGO_SK1"]
 DEBUG = os.environ["DJANGO_DEBUG1"] == "True"
 
 
-ALLOWED_HOSTS = ["polar-lake-80686.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["herokuapp.com", "127.0.0.1"]
 
 DEFAULT_DOMAIN = f"http://polar-lake-80686.herokuapp.com"
 
