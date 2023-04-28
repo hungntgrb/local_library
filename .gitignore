@@ -139,6 +139,9 @@ locallibrary/settings1.py
 staticfiles/
 form_demo.html
 venv2/
+prod.py
+activateVenv.ps1
+mysecrets
 .vscode
 node_modules/
 package.json
