@@ -134,6 +134,7 @@ dmypy.json
 *.bak
 # Database
 *.sqlite3
+*.db
 # Mine
 locallibrary/settings1.py
 staticfiles/
