@@ -1,33 +1,62 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.urls import reverse
 import uuid
 from datetime import date
+from django.db import models
+from django.urls import reverse
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+
+from locallibrary.models import MyBaseModel
 
 
-class Genre(models.Model):
-    """A Model representing book's genre"""
+class Genre(MyBaseModel):
+    """A Model representing Book's Genre"""
     name = models.CharField(
-        max_length=200, help_text='Enter a book genre. (e.g Science Fiction)')
+        max_length=200,
+        help_text=_('Enter a book genre. (e.g Science Fiction)')
+    )
+
+    class Meta:
+        ordering = ('name',)
 
     def __str__(self):
         """String representing a Genre"""
         return self.name
 
 
-class Book(models.Model):
-    """A class representing a book (not particular copy)."""
+class Book(MyBaseModel):
+    """A class representing a Book (not particular copy)."""
 
-    title = models.CharField(max_length=200, help_text='Title of the book.')
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    title = models.CharField(
+        max_length=200,
+        help_text=_('Title of the book.')
+    )
+    author = models.ForeignKey(
+        'Author',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     summary = models.TextField(
-        max_length=1000, help_text='Enter a brief description of the book.')
+        max_length=1000,
+        help_text=_('Enter a brief description of the book.')
+    )
     isbn = models.CharField(
-        'ISBN', max_length=13, help_text='<a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number">ISBN Number</a>')
+        _('ISBN'),
+        max_length=13,
+        help_text='<a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number">ISBN Number</a>'
+    )
     genre = models.ManyToManyField(
-        Genre, help_text='Select genres for this book.')
+        Genre,
+        help_text=_('Select genres for this book.')
+    )
     language = models.ForeignKey(
-        'Language', on_delete=models.SET_NULL, null=True)
+        'Language',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        ordering = ('title',)
 
     def __str__(self):
         return self.title
@@ -41,16 +70,34 @@ class Book(models.Model):
     display_genre.short_description = 'Genre'
 
 
-class BookInstance(models.Model):
-    """Model representing a particular copy of book."""
+class BookInstance(MyBaseModel):
+    """Model representing a particular copy of Book."""
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          help_text='Unique ID for a particular copy of book.')
-    book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
-    imprint = models.CharField(max_length=200)
-    due_back = models.DateField(blank=True, null=True)
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        help_text=_('Unique ID for a particular copy of book.')
+    )
+    book = models.ForeignKey(
+        'Book',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    imprint = models.CharField(
+        max_length=200,
+        blank=True,
+        default='Some Imprint X'
+    )
+    due_back = models.DateField(
+        blank=True,
+        null=True
+    )
     borrower = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, blank=True)
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -62,8 +109,9 @@ class BookInstance(models.Model):
     status = models.CharField(
         max_length=1,
         choices=LOAN_STATUS,
-        blank=True, default='m',
-        help_text='Book Availability',
+        blank=True,
+        default='m',
+        help_text=_('Book Availability'),
     )
 
     class Meta:
@@ -83,27 +131,40 @@ class BookInstance(models.Model):
         return (self.due_back - date.today()).days
 
 
-class Author(models.Model):
-    """Model represent an author"""
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField(blank=True, null=True)
-    date_of_death = models.DateField('Died', blank=True, null=True)
+class Author(MyBaseModel):
+    """Model represent an Author"""
+    first_name = models.CharField(
+        max_length=100
+    )
+    last_name = models.CharField(
+        max_length=100
+    )
+    date_of_birth = models.DateField(
+        _('Born'),
+        blank=True,
+        null=True
+    )
+    date_of_death = models.DateField(
+        _('Died'),
+        blank=True,
+        null=True
+    )
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ('last_name', 'first_name')
         permissions = (
-            ('can_crud_author', 'Can create, update, delete author'), )
+            ('can_crud_author', 'Can create, update, delete author'),
+        )
 
     def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+        return reverse('author-detail', kwargs={'pk': self.id})
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
 
 
-class Language(models.Model):
-    """A model representing languages books are written in."""
+class Language(MyBaseModel):
+    """A model representing Languages in which Books are written."""
     LANGUAGES = (
         ('en', 'English'),
         ('fr', 'French'),
@@ -111,10 +172,16 @@ class Language(models.Model):
         ('es', 'Spanish'),
         ('fa', 'Farsi'),
         ('vi', 'Vietnamese'),
+        ('kr', 'Korean'),
+        ('jp', 'Japanese'),
     )
     name = models.CharField(
-        max_length=2, choices=LANGUAGES, default='en', blank=True,
-        help_text='Select language for this book')
+        max_length=2,
+        choices=LANGUAGES,
+        default='en',
+        blank=True,
+        help_text=_('Select language for this book')
+    )
 
     def __str__(self):
         return self.name
