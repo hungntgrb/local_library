@@ -23,7 +23,8 @@ class HelperFunctions:
 
     def userCurrentlyBorrowingThatBook(self, request, uid):
         bookCopy = BookInstance.objects.get(pk=uid)
-        userIsHaving = map(lambda x: x.book, request.user.bookinstance_set.all())
+        userIsHaving = map(
+            lambda x: x.book, request.user.bookinstance_set.all())
         return bookCopy.book in userIsHaving
 
     def errorMsg_HTML_Safe(self, request, msg):
@@ -44,7 +45,8 @@ hf = HelperFunctions()
 def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
-    num_instances_available = BookInstance.objects.filter(status__exact="a").count()
+    num_instances_available = BookInstance.objects.filter(
+        status__exact="a").count()
     num_authors = Author.objects.count()
     num_genres = Genre.objects.count()
 
@@ -230,7 +232,7 @@ class BookCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
 
 class BookUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Book
-    fields = "__all__"
+    fields = ("title", "author", "summary", "isbn", "genre", "language")
     permission_required = "catalog.change_book"
     success_message = f"Book successfully updated!"
 
@@ -244,7 +246,8 @@ class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
 
 def search_view(request):
     q = request.GET.get("q")
-    book_results = Book.objects.filter(Q(title__icontains=q) | Q(summary__icontains=q))
+    book_results = Book.objects.filter(
+        Q(title__icontains=q) | Q(summary__icontains=q))
     author_results = Author.objects.filter(
         Q(first_name__icontains=q) | Q(last_name__icontains=q)
     )
@@ -257,13 +260,12 @@ def search_view(request):
 
 def send_an_email(request):
     send_mail(
-        "Hello from Django!",
-        "A very interesing body.",
-        os.environ.get("EMAIL_USER1"),
-        ["hungnt89@gmail.com",],
+        subject="Hello from Django!",
+        message="A very interesing body.",
+        from_email=os.environ.get("EMAIL_USER1"),
+        recipient_list=["hungnt892@gmail.com",],
         fail_silently=False,
         html_message="<h1>Test HTML</h1>",
     )
     messages.success(request, "Email sent!")
     return redirect(reverse("index"))
-
