@@ -1,0 +1,55 @@
+{
+    "authors": [
+        {
+            "first_name": "Jules",
+            "last_name": "Verne",
+            "date_of_birth": "1828-02-08",
+            "date_of_death": "1905-03-24",
+            "books": [
+                {
+                    "title": "Around the World in Eighty Days",
+                    "summary": "Around the World in Eighty Days (French: Le tour du monde en quatre-vingts jours) is an adventure novel by the French writer Jules Verne, first published in French in 1872. In the story, Phileas Fogg of London and his newly employed French valet Passepartout attempt to circumnavigate the world in 80 days on a wager of £20,000 (equivalent to £1.9 million in 2019) set by his friends at the Reform Club. It is one of Verne's most acclaimed works.",
+                    "isbn": "1436789563456",
+                    "genre": "Adventure",
+                    "language": "fr"
+                }
+            ]
+        },
+        {
+            "first_name": "",
+            "last_name": "",
+            "date_of_birth": "",
+            "date_of_death": ""
+        },
+        {
+            "first_name": "",
+            "last_name": "",
+            "date_of_birth": "",
+            "date_of_death": ""
+        },
+        {
+            "first_name": "",
+            "last_name": "",
+            "date_of_birth": "",
+            "date_of_death": ""
+        },
+        {
+            "first_name": "",
+            "last_name": "",
+            "date_of_birth": "",
+            "date_of_death": ""
+        },
+        {
+            "first_name": "",
+            "last_name": "",
+            "date_of_birth": "",
+            "date_of_death": ""
+        },
+        {
+            "first_name": "",
+            "last_name": "",
+            "date_of_birth": "",
+            "date_of_death": ""
+        }
+    ]
+}
