@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+  Error 500
+{% endblock title %}
+
+{% block heading %}
+  Error 500
+{% endblock heading %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center" style="height: 66vh;">
+    <div style=" max-width: 500px;">
+      {% include 'error_02.svg' %}
+    </div>
+  </div>
+{% endblock content %}
