@@ -5,9 +5,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Local Library - {% block title %}{% endblock title %}</title>
-
     <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
   </head>
 
@@ -81,8 +79,8 @@
             </div>
           </li>
         </ul>
-        <!-- SEARCH BAR -->
-        <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET">
+        {# ------------ Search Bar ------------ #}
+        <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET" autocomplete="off">
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="vd. Harry Potter" aria-label="Search" name="q"
             id="search-bar">
@@ -97,7 +95,7 @@
     {% endblock banner %}
 
     <div id="main-container" class="container my-container">
-      <!------ MESSAGE SECTION -------->
+      {# ------------ Messages ------------ #}
       {% if messages %}
 
       {% for message in messages %}
@@ -116,8 +114,8 @@
 
       {% endfor %}
       {% endif %}
-      <!------ END MESSAGE SECTION -------->
-      <!------ FORM ERRORS SECTION ------>
+      {# ------------ End Messages ------------ #}
+      {# ------------ Form Errors ------------ #}
       {% if form.errors %}
       {% for field in form %}
       {% for error in field.errors %}
@@ -138,17 +136,17 @@
       </div>
       {% endfor %}
       {% endif %}
-      <!------ END FORM ERRORS SECTION ------>
-      <!-- HEADING -->
-      <h1 class="tieu-de-page">
+      {# ------------ End Form Errors ------------ #}
+      {# ------------ Heading ------------ #}
+      <h1 class="tieu-de-page" style="margin-top: 1rem;">
         {% block heading %}
         {% endblock heading %}
       </h1>
-      <!-- CONTENT -->
+      {# ------------ Content ------------ #}
       {% block content %}
       {% endblock content %}
 
-      <!------------ PAGINATION --------------->
+      {# ------------ Pagination ------------ #}
       {% if is_paginated %}
       <nav aria-label="Pages" class="mt-3">
         <ul class="pagination justify-content-center">
@@ -170,10 +168,10 @@
         </ul>
       </nav>
       {% endif %}
-      <!------------ END PAGINATION --------------->
+      {# ------------ End Pagination ------------ #}
 
     </div>
-    <!---- End Container ---->
+    {# ------------ End Container ------------ #}
 
     <footer>
       <div>Written with <span class="django">Django</span></div>
