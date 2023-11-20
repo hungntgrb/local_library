@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
@@ -57,3 +57,14 @@ class UserLoginAPIView(APIView):
 
 
 user_login = UserLoginAPIView.as_view()
+
+
+class UserLogoutAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        return Response({'message': 'Logged out successfully!'})
+
+
+user_logout = UserLogoutAPIView.as_view()
