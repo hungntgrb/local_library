@@ -115,3 +115,49 @@ class TestRetrieveBookList:
         assert res.status_code == 200
         res_data = res.json()
         assert len(res_data) == 2
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('insert_1_book')
+class TestRetrieveABook:
+
+    def api_retrieve_a_book(self, client_, book_id):
+        return client_.get(reverse(
+            'api:book_retrieve', kwargs={'pk': book_id})
+        )
+
+    def test_a_book_does_not_exist(self, client: Client,
+                                   insert_1_book):
+        book1 = insert_1_book
+        res = self.api_retrieve_a_book(client,
+                                       book_id='a1d3s2f4g6f5d4')
+
+        assert res.status_code == 404
+
+    def test_anonymous_user_get_a_book(self, client: Client,
+                                       insert_1_book):
+        book1 = insert_1_book
+        res = self.api_retrieve_a_book(client,
+                                       book_id=book1.id)
+
+        assert res.status_code == 200
+
+    def test_normal_user_get_a_book(self, client: Client,
+                                    insert_1_book, normal_user_1):
+        book1 = insert_1_book
+        client.force_login(normal_user_1)
+
+        res = self.api_retrieve_a_book(client,
+                                       book_id=book1.id)
+
+        assert res.status_code == 200
+
+    def test_staff_user_get_a_book(self, client: Client,
+                                   insert_1_book, staff_user_1):
+        book1 = insert_1_book
+        client.force_login(staff_user_1)
+
+        res = self.api_retrieve_a_book(client,
+                                       book_id=book1.id)
+
+        assert res.status_code == 200

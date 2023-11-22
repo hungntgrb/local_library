@@ -7,6 +7,8 @@ app_name = "api"
 
 urlpatterns = [
     path("books/", api_views.book_list, name="book_list"),
-    path("books/_add/", api_views.book_create, name="book_create"),
-    path("books/<str:pk>/", api_views.book_rud, name="book_detail"),
+    path("add-new-book/", api_views.book_create, name="book_create"),
+    path("book/<str:pk>/", api_views.book_retrieve, name="book_retrieve"),
+    # path("update-book/<str:pk>/", api_views.book_update, name="book_update"),
+    # path("remove-book/<str:pk>/", api_views.book_destroy, name="book_destroy"),
 ]
