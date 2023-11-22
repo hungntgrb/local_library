@@ -1,9 +1,12 @@
-from rest_framework import serializers
-from catalog.models import Book
+from rest_framework import serializers as s
+from catalog.models import Book, BookInstance, Author
 
 
-class BookSerializer(serializers.ModelSerializer):
+class BookSerializer(s.ModelSerializer):
     class Meta:
         model = Book
-        fields = "__all__"
-
+        fields = ('id', 'title', 'author', 'summary',
+                  'isbn', 'genre', 'language')
+        extra_kwargs = {
+            'genre': {'required': False}
+        }
