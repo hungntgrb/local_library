@@ -10,6 +10,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "locallibrary01.sqlite3",
+        "NAME": BASE_DIR / "locallibrary001.sqlite3",
     }
 }

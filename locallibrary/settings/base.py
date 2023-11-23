@@ -5,11 +5,13 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+SECRET_KEY = '...'
+DEBUG = True
+
 # ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1"]
 
 DEFAULT_DOMAIN = "hung-library.herokuapp.com"
 
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -30,7 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -60,20 +62,12 @@ TEMPLATES = [
 WSGI_APPLICATION = "locallibrary.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -86,17 +80,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
+PASSWORD_MIN_LENGTH = 8
+
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Asia/Bangkok"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
@@ -106,9 +99,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR/"static_root"
 
-# Simplified statis files to serve
-# https://warehouse.python.org/project/whitenoise
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# STORAGES = None
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR/"media_root"
@@ -129,9 +123,5 @@ MESSAGE_TAGS = {
     constants.ERROR: "danger",
 }
 
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 465
-EMAIL_HOST_USER = os.environ.get("EMAIL_USER1")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS1")
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
