@@ -1,8 +1,13 @@
 import pytest
 
-from catalog.models import Book
+from catalog.models import Book, Author
 from users.models import User
 from django.contrib.auth.models import Group, Permission
+
+
+# ===================================================
+#                     Books
+# ===================================================
 
 
 @pytest.mark.django_db
@@ -26,6 +31,10 @@ def insert_2_books(insert_1_book):
     )
     # print('\n--- insert_1_more_book()')
     yield book1, book2
+
+# ===================================================
+#                      Users
+# ===================================================
 
 
 @pytest.mark.django_db
@@ -73,3 +82,29 @@ def staff_user_1(a_strong_password):
 @pytest.fixture
 def insert_3_users(normal_user_1, librarian_1, staff_user_1):
     yield normal_user_1, librarian_1, staff_user_1
+
+
+# ===================================================
+#                    Authors
+# ===================================================
+
+
+@pytest.mark.django_db
+@pytest.fixture
+def author_1():
+    _author = Author.objects.create(
+        first_name='Hung',
+        last_name='Nguyen'
+    )
+    yield _author
+
+
+@pytest.fixture
+def expected_author_1_data():
+    _data = {
+        'first_name': 'Hung',
+        'last_name': 'Nguyen',
+        'date_of_birth': None,
+        'date_of_death': None,
+    }
+    yield _data

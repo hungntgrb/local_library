@@ -10,3 +10,10 @@ class BookSerializer(s.ModelSerializer):
         extra_kwargs = {
             'genre': {'required': False}
         }
+
+
+class AuthorSerializer(s.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ('first_name', 'last_name',
+                  'date_of_birth', 'date_of_death')

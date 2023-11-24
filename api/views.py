@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAdminUser
 
-from catalog.models import Book
-from api.serializers import BookSerializer
+from catalog.models import Book, Author
+from api.serializers import BookSerializer, AuthorSerializer
 from .permissions import IsLibrarianOrAdmin
 
 
@@ -50,3 +50,51 @@ class BookDestroyAPIView(generics.DestroyAPIView):
 
 
 book_destroy = BookDestroyAPIView.as_view()
+# ===================================================
+#                   Authors
+# ===================================================
+
+
+class AuthorListAPIView(generics.ListAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = (AllowAny,)
+
+
+author_list = AuthorListAPIView.as_view()
+
+
+# class AuthorCreateAPIView(generics.CreateAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorSerializer
+#     permission_classes = (IsLibrarianOrAdmin,)
+
+
+# author_create = AuthorCreateAPIView.as_view()
+
+
+class AuthorRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = (AllowAny,)
+
+
+author_retrieve = AuthorRetrieveAPIView.as_view()
+
+
+# class AuthorUpdateAPIView(generics.UpdateAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorSerializer
+#     permission_classes = (IsLibrarianOrAdmin,)
+
+
+# author_update = AuthorUpdateAPIView.as_view()
+
+
+# class AuthorDestroyAPIView(generics.DestroyAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorSerializer
+#     permission_classes = (IsAdminUser,)
+
+
+# author_destroy = AuthorDestroyAPIView.as_view()
