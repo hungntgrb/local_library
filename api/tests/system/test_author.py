@@ -213,3 +213,50 @@ class TestAuthorUpdate:
                                      data={'full_name': 'Spider Man'})
 
         assert res.status_code == 400
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('author_1')
+class TestAuthorDestroy:
+
+    def api_author_destroy(self, client_, author_pk):
+
+        return client_.delete(
+            reverse('api:author_destroy', kwargs={'pk': author_pk})
+        )
+
+    def test_anonymous_user_cannot_delete(self, client: Client, author_1):
+        res = self.api_author_destroy(client, author_1.id)
+
+        assert res.status_code == 403
+
+    def test_normal_user_cannot_delete(self, client: Client, author_1,
+                                       normal_user_1):
+        client.force_login(normal_user_1)
+
+        res = self.api_author_destroy(client, author_1.id)
+
+        assert res.status_code == 403
+
+    def test_librarian_cannot_delete(self, client: Client, author_1,
+                                     librarian_1):
+        client.force_login(librarian_1)
+
+        res = self.api_author_destroy(client, author_1.id)
+
+        assert res.status_code == 403
+
+    def test_staff_user_can_delete(self, client: Client, author_1,
+                                   staff_user_1):
+        client.force_login(staff_user_1)
+
+        res = self.api_author_destroy(client, author_1.id)
+
+        assert res.status_code == 204
+
+    def test_author_does_not_exist(self, client: Client, staff_user_1):
+        client.force_login(staff_user_1)
+
+        res = self.api_author_destroy(client, 'doesnotexist')
+
+        assert res.status_code == 404

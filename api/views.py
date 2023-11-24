@@ -91,10 +91,10 @@ class AuthorUpdateAPIView(generics.UpdateAPIView):
 author_update = AuthorUpdateAPIView.as_view()
 
 
-# class AuthorDestroyAPIView(generics.DestroyAPIView):
-#     queryset = Author.objects.all()
-#     serializer_class = AuthorSerializer
-#     permission_classes = (IsAdminUser,)
+class AuthorDestroyAPIView(generics.DestroyAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = (IsAdminUser,)
 
 
-# author_destroy = AuthorDestroyAPIView.as_view()
+author_destroy = AuthorDestroyAPIView.as_view()
