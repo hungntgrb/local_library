@@ -64,13 +64,13 @@ class AuthorListAPIView(generics.ListAPIView):
 author_list = AuthorListAPIView.as_view()
 
 
-# class AuthorCreateAPIView(generics.CreateAPIView):
-#     queryset = Author.objects.all()
-#     serializer_class = AuthorSerializer
-#     permission_classes = (IsLibrarianOrAdmin,)
+class AuthorCreateAPIView(generics.CreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = (IsLibrarianOrAdmin,)
 
 
-# author_create = AuthorCreateAPIView.as_view()
+author_create = AuthorCreateAPIView.as_view()
 
 
 class AuthorRetrieveAPIView(generics.RetrieveAPIView):

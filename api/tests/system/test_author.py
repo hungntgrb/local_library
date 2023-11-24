@@ -77,3 +77,64 @@ class TestAuthorRetrieve:
         assert res.status_code == 200
         res_json = res.json()
         assert res_json == expected_author_1_data
+
+
+@pytest.mark.django_db
+class TestAuthorCreate:
+    def api_author_create(self, client_, data=None):
+        if data is None:
+            data = {
+                'first_name': 'Bruce',
+                'last_name': 'Banner'
+            }
+        return client_.post(
+            reverse('api:author_create'),
+            data=data,
+            content_type='application/json'
+        )
+
+    @property
+    def expected_res_data(self):
+        return {
+            'first_name': 'Bruce',
+            'last_name': 'Banner',
+            'date_of_birth': None,
+            'date_of_death': None,
+        }
+
+    def test_anonymous_user_cannot_create(self, client: Client):
+        res = self.api_author_create(client)
+
+        assert res.status_code == 403
+
+    def test_librarian_can_create(self, client: Client,
+                                  librarian_1):
+        client.force_login(librarian_1)
+
+        res = self.api_author_create(client)
+
+        assert res.status_code == 201
+        assert res.json() == self.expected_res_data
+
+    def test_staff_user_can_create(self, client: Client,
+                                   staff_user_1):
+        client.force_login(staff_user_1)
+
+        res = self.api_author_create(client)
+
+        assert res.status_code == 201
+        assert res.json() == self.expected_res_data
+
+    def test_post_bad_data(self, client: Client,
+                           librarian_1):
+        client.force_login(librarian_1)
+
+        res1 = self.api_author_create(client,
+                                      data={'first_name': 'Libra'})
+
+        assert res1.status_code == 400
+
+        res2 = self.api_author_create(client,
+                                      data={'last_name': 'Tran'})
+
+        assert res2.status_code == 400

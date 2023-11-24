@@ -14,7 +14,7 @@ urlpatterns = [
     # --- Authors ---
     path("authors/", api_views.author_list, name="author_list"),
     path("authors/<str:pk>/", api_views.author_retrieve, name="author_retrieve"),
-    # path("add-an-author/<str:pk>/", api_views.author_create, name="author_create"),
+    path("add-an-author/", api_views.author_create, name="author_create"),
     # path("update-author/<str:pk>/", api_views.author_update, name="author_update"),
     # path("delete-author/<str:pk>/",
     #      api_views.author_destroy, name="author_destroy"),
