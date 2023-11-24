@@ -82,13 +82,13 @@ class AuthorRetrieveAPIView(generics.RetrieveAPIView):
 author_retrieve = AuthorRetrieveAPIView.as_view()
 
 
-# class AuthorUpdateAPIView(generics.UpdateAPIView):
-#     queryset = Author.objects.all()
-#     serializer_class = AuthorSerializer
-#     permission_classes = (IsLibrarianOrAdmin,)
+class AuthorUpdateAPIView(generics.UpdateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = (IsLibrarianOrAdmin,)
 
 
-# author_update = AuthorUpdateAPIView.as_view()
+author_update = AuthorUpdateAPIView.as_view()
 
 
 # class AuthorDestroyAPIView(generics.DestroyAPIView):

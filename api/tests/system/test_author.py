@@ -138,3 +138,78 @@ class TestAuthorCreate:
                                       data={'last_name': 'Tran'})
 
         assert res2.status_code == 400
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('author_1')
+class TestAuthorUpdate:
+
+    @property
+    def PUT_data(self):
+        return {
+            'first_name': 'Hung Updated',
+            'last_name': 'Nguyen',
+            'date_of_birth': None,
+            'date_of_death': None,
+        }
+
+    @property
+    def expected_res_data(self):
+        return self.PUT_data
+
+    def api_author_update(self, client_, author_pk, data=None):
+        if data is None:
+            data = self.PUT_data
+
+        return client_.put(
+            reverse(
+                'api:author_update', kwargs={'pk': author_pk}),
+            data=data,
+            content_type='application/json'
+        )
+
+    def test_anonymous_user_cannot_update(self, client: Client, author_1):
+        res = self.api_author_update(client, author_1.id)
+
+        assert res.status_code == 403
+
+    def test_normal_user_cannot_update(self, client: Client, author_1,
+                                       normal_user_1):
+        client.force_login(normal_user_1)
+
+        res = self.api_author_update(client, author_1.id)
+
+        assert res.status_code == 403
+
+    def test_librarian_can_update(self, client: Client, author_1,
+                                  librarian_1):
+        client.force_login(librarian_1)
+
+        res = self.api_author_update(client, author_1.id)
+
+        assert res.status_code == 200
+        assert res.json() == self.expected_res_data
+
+    def test_author_does_not_exist(self, client: Client, librarian_1):
+        client.force_login(librarian_1)
+
+        res = self.api_author_update(client, 'doesnotexist')
+
+        assert res.status_code == 404
+
+    def test_staff_user_can_update(self, client: Client, author_1,
+                                   staff_user_1):
+        client.force_login(staff_user_1)
+
+        res = self.api_author_update(client, author_1.id)
+
+        assert res.status_code == 200
+        assert res.json() == self.expected_res_data
+
+    def test_PUT_bad_data(self, client: Client, author_1, librarian_1):
+        client.force_login(librarian_1)
+
+        res = self.api_author_update(client, author_1.id,
+                                     data={'full_name': 'Spider Man'})
+
+        assert res.status_code == 400
