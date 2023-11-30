@@ -9,6 +9,7 @@ from django.contrib.auth import login, logout, authenticate
 from users.models import User
 from .serializers import (UserCreateSerializer, UserSerializer,
                           UserLoginSerializer)
+from .permissions import GuestOnly
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -34,7 +35,7 @@ user_list = UserListAPIView.as_view()
 
 class UserLoginAPIView(APIView):
 
-    permission_classes = (AllowAny,)
+    permission_classes = (GuestOnly,)
 
     def post(self, request: Request, *args, **kwargs):
         serializer = UserLoginSerializer(data=request.data)
@@ -50,7 +51,7 @@ class UserLoginAPIView(APIView):
                 serializer = UserSerializer(user)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                return Response({'detail': 'User not found!'},
+                return Response({'detail': 'Please check email and password!'},
                                 status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -64,6 +65,7 @@ class UserLogoutAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
+        logout(request)
         return Response({'message': 'Logged out successfully!'})
 
 
