@@ -151,3 +151,7 @@ main.scss
 styles.scss
 pytest.ini
 some_imports.py
+static_root
+mydemo*.py
+
+
