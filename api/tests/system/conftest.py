@@ -1,6 +1,6 @@
 import pytest
 
-from catalog.models import Book, Author
+from catalog.models import Book, Author, BookInstance
 from users.models import User
 from django.contrib.auth.models import Group, Permission
 
@@ -31,6 +31,47 @@ def insert_2_books(insert_1_book):
     )
     # print('\n--- insert_1_more_book()')
     yield book1, book2
+
+
+@pytest.mark.django_db
+@pytest.fixture
+def insert_2_available_instances(insert_2_books):
+    book1, book2 = insert_2_books
+    b1i1a = BookInstance.objects.create(book=book1, status='a')
+    b2i1a = BookInstance.objects.create(book=book2, status='a')
+    yield b1i1a,  b2i1a
+
+
+@pytest.mark.django_db
+@pytest.fixture
+def insert_2_on_loan_instances(insert_2_books, user01):
+    book1, book2 = insert_2_books
+    b1i1o = BookInstance.objects.create(book=book1, status='o',
+                                        borrower=user01)
+    b2i1o = BookInstance.objects.create(book=book2, status='o',
+                                        borrower=user01)
+    yield b1i1o,  b2i1o
+
+
+@pytest.mark.django_db
+@pytest.fixture
+def insert_2_maintaining_instances(insert_2_books):
+    book1, book2 = insert_2_books
+    b1i1m = BookInstance.objects.create(book=book1, status='m')
+    b2i1m = BookInstance.objects.create(book=book2, status='m')
+    yield b1i1m,  b2i1m
+
+
+@pytest.mark.django_db
+@pytest.fixture
+def insert_some_instances(insert_2_available_instances,
+                          insert_2_on_loan_instances,
+                          insert_2_maintaining_instances):
+    b1i1a, b2i1a = insert_2_available_instances
+    b1i2o, b2i2o = insert_2_on_loan_instances
+    b1i3m, b2i3m = insert_2_maintaining_instances
+    yield b1i1a, b1i2o, b1i3m, b2i1a, b2i2o, b2i3m
+
 
 # ===================================================
 #                      Users

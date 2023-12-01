@@ -18,4 +18,6 @@ urlpatterns = [
     path("update-author/<str:pk>/", api_views.author_update, name="author_update"),
     path("delete-author/<str:pk>/",
          api_views.author_destroy, name="author_destroy"),
+    # --- Users ---
+    path("borrow-book/<uuid:instance_id>/", api_views.borrow_a_book, name="borrow_a_book"),
 ]

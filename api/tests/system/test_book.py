@@ -3,7 +3,7 @@ import pytest
 from django.urls import reverse
 from django.test.client import Client
 
-from catalog.models import Book
+from catalog.models import Book, BookInstance
 
 
 @pytest.mark.django_db
@@ -161,3 +161,63 @@ class TestRetrieveABook:
                                        book_id=book1.id)
 
         assert res.status_code == 200
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('insert_2_available_instances',
+                         'insert_2_on_loan_instances')
+class TestBorrowABook:
+    def test_there_are_2_available_instances(self):
+        assert BookInstance.objects.filter(status='a').count() == 2
+
+    def test_there_are_2_on_loan_instances(self):
+        assert BookInstance.objects.filter(status='o').count() == 2
+
+    def api_borrow_a_book(self, client_, instance_id):
+        return client_.get(
+            reverse('api:borrow_a_book',
+                    kwargs={'instance_id': instance_id}),
+        )
+
+    def test_anonymous_cannot_borrow(self, client: Client,
+                                     insert_2_available_instances):
+        b1a, b2a = insert_2_available_instances
+
+        res = self.api_borrow_a_book(client, b1a.id)
+
+        assert res.status_code == 403
+
+    def test_user_borrow_an_available(self, client: Client, user01,
+                                      insert_2_available_instances):
+        b1a, b2a = insert_2_available_instances
+
+        client.force_login(user01)
+        res = self.api_borrow_a_book(client, b1a.id)
+
+        assert res.status_code == 200
+
+    def test_user_borrow_an_on_loan(self, client: Client, user02,
+                                    insert_2_on_loan_instances):
+        b1o, b2o = insert_2_on_loan_instances
+
+        client.force_login(user02)
+        res = self.api_borrow_a_book(client, b1o.id)
+
+        assert res.status_code == 400
+
+    def test_user_borrow_a_maintaining(self, client: Client, user02,
+                                       insert_2_maintaining_instances):
+        b1m, b2m = insert_2_maintaining_instances
+
+        client.force_login(user02)
+        res = self.api_borrow_a_book(client, b1m.id)
+
+        assert res.status_code == 400
+
+    def test_user_borrow_a_non_existing(self, client: Client, user02):
+
+        client.force_login(user02)
+        res = self.api_borrow_a_book(client,
+                                     'f4dbe637-57fe-463b-8d60-c757dccccccc')
+
+        assert res.status_code == 404

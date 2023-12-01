@@ -1,10 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import (AllowAny, IsAdminUser,
+                                        IsAuthenticated)
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status
 
-from catalog.models import Book, Author
+from catalog.models import Book, Author, BookInstance
 from api.serializers import BookSerializer, AuthorSerializer
 from .permissions import IsLibrarianOrAdmin
+from catalog import actions as a
 
 
 class BookListPIView(generics.ListAPIView):
@@ -98,3 +103,18 @@ class AuthorDestroyAPIView(generics.DestroyAPIView):
 
 
 author_destroy = AuthorDestroyAPIView.as_view()
+
+
+@api_view(('GET',))
+@permission_classes((IsAuthenticated,))
+def borrow_a_book(request, instance_id, *args, **kwargs):
+    instance = get_object_or_404(BookInstance, id=instance_id)
+    book_title = instance.book.title
+
+    if not instance.is_available:
+        return Response({'detail': f'Book "{book_title}" is not available right now.'},
+                        status=status.HTTP_400_BAD_REQUEST)
+
+    a.mark_book_as_on_loan(instance, request.user)
+
+    return Response({'detail': f'Borrowed "{book_title}" successfully!'})

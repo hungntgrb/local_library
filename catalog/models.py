@@ -28,25 +28,34 @@ class Book(MyBaseModel):
 
     title = models.CharField(
         max_length=200,
-        help_text=_('Title of the book.')
+        help_text=_('Title of the book.'),
+        blank=False,
+        null=False
     )
     author = models.ForeignKey(
         'Author',
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
     summary = models.TextField(
         max_length=1000,
-        help_text=_('Enter a brief description of the book.')
+        help_text=_('Enter a brief description of the book.'),
+        blank=True,
+        null=True
     )
     isbn = models.CharField(
         _('ISBN'),
         max_length=13,
-        help_text='<a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number">ISBN Number</a>'
+        help_text='<a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number">ISBN Number</a>',
+        blank=True,
+        null=True
     )
     genre = models.ManyToManyField(
         Genre,
-        help_text=_('Select genres for this book.')
+        help_text=_('Select genres for this book.'),
+        blank=True,
+        null=True
     )
     language = models.ForeignKey(
         'Language',
@@ -130,6 +139,16 @@ class BookInstance(MyBaseModel):
     def days_left(self):
         return (self.due_back - date.today()).days
 
+    @property
+    def is_on_loan(self):
+        return (self.status == 'o' and
+                self.borrower is not None)
+
+    @property
+    def is_available(self):
+        return (self.status == 'a' and
+                self.borrower is None)
+
 
 class Author(MyBaseModel):
     """Model represent an Author"""
@@ -153,7 +172,7 @@ class Author(MyBaseModel):
     class Meta:
         ordering = ('last_name', 'first_name')
         permissions = (
-            ('can_crud_author', 'Can create, update, delete author'),
+            ('can_crud_author', 'Can create, retrieve, update, delete author'),
         )
 
     def get_absolute_url(self):
