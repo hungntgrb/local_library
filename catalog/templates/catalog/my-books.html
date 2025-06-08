@@ -21,11 +21,11 @@
   {% for bookInst in object_list %}
 
   <tr class="border-bottom border-dark">
-    <th scope="row"><a href="{% url 'book-detail' bookInst.book.pk %}">{{ bookInst.book.title }} </a></th>
+    <th scope="row"><a href="{% url 'book-detail' bookInst.book.slug %}">{{ bookInst.book.title }} </a></th>
     <td class="{% if bookInst.is_overdue %}text-danger{% endif %}">
       {{ bookInst.due_back }}<span class="text-muted ml-2">({{ bookInst.days_left }} days left)</span>
     </td>
-    <td><a class="btn btn-brown-1" href="{% url 'return_a_book' bookInst.pk %}">Return</a></td>
+    <td><a class="btn btn-brown-1" href="{% url 'return_a_book' bookInst.uuid %}">Return</a></td>
   </tr>
 
   {% endfor %}

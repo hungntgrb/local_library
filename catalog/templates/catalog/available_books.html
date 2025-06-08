@@ -1,59 +1,63 @@
 {% extends 'base_generic.html' %}
 
 {% block heading %}
-Available Books ({{ object_list.count }})
+  Available Books ({{ object_list.count }})
 {% endblock heading %}
 
 {% block content %}
 
-<hr />
+  <hr />
 
-<!--- REGROUP -->
-{% regroup object_list by book as book_list %}
+  <!--- REGROUP -->
+  {% regroup object_list by book as book_list %}
 
-<div class="my-list">
-  <div class="accordion" id="availableBooks">
+  <div class="my-list">
+    <div class="accordion" id="availableBooks">
 
-    {% for book, copies in book_list %}
+      {% for book, copies in book_list %}
 
-    <div class="card">
-      <div class="card-header bg-green-1" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-block text-left font-weight-bold text-accor" type="button" data-toggle="collapse"
-            data-target="#book-{{book.id}}" aria-expanded="true" aria-controls="book-{{book.id}}">
-            {{ book }}
-          </button>
-        </h2>
-      </div>
+        <div class="card">
+          <div class="card-header bg-green-1" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left font-weight-bold text-accor"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#book-{{ book.id }}"
+                      aria-expanded="true"
+                      aria-controls="book-{{ book.id }}">{{ book }}</button>
+            </h2>
+          </div>
 
-      <div id="book-{{book.id}}" class="collapse {% if forloop.first %}show{% endif %}" aria-labelledby="headingOne"
-        data-parent="#availableBooks">
-        <div class="card-body">
+          <div id="book-{{ book.id }}"
+               class="collapse {% if forloop.first %}show{% endif %}"
+               aria-labelledby="headingOne"
+               data-parent="#availableBooks">
+            <div class="card-body">
 
-          <ul class="list-group list-group-flush">
-            {% for copy_ in copies %}
-            <li class="list-group-item d-flex justify-content-between">
-              <div class="d-flex flex-column">
-                <span><strong>Imprint:</strong> {{ copy_.imprint }}</span>
-                <span><strong>Id:</strong> {{ copy_.id|truncatechars:12 }}</span>
-              </div>
+              <ul class="list-group list-group-flush">
+                {% for copy_ in copies %}
+                  <li class="list-group-item d-flex justify-content-between">
+                    <div class="d-flex flex-column">
+                      <span><strong>Imprint:</strong> {{ copy_.imprint }}</span>
+                      <span><strong>Id:</strong> {{ copy_.id|truncatechars:12 }}</span>
+                    </div>
 
-              {% if user.is_authenticated %}
-              <a href="{% url 'borrow_a_book' copy_.pk %}">
-                <span class="btn btn-brown-1 ml-2">Borrow</span>
-              </a>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
+                    {% if user.is_authenticated %}
+                      <a href="{% url 'borrow_a_book' copy_.uuid %}">
+                        <span class="btn btn-brown-1 ml-2">Borrow</span>
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
 
+            </div>
+          </div>
         </div>
-      </div>
+
+      {% endfor %}
+
     </div>
-
-    {% endfor %}
-
   </div>
-</div>
 
 {% endblock content %}

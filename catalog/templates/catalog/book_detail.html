@@ -9,14 +9,14 @@ Book Detail
 <div class="jumbotron">
   <h1 class="display-4">{{ book.title }}</h1>
   <div class="d-flex justify-content-between">
-    <p class="lead">Author: <a href="{% url 'author-detail' book.author.pk %}"><strong>{{ book.author }}</strong></a>
+    <p class="lead">Author: <a href="{% url 'author-detail' book.author.slug %}"><strong>{{ book.author }}</strong></a>
     </p>
     <div class="crud">
       {% if perms.catalog.change_book %}
-      <a href="{% url 'book_update' book.pk %}" ">{% include 'update_button.html' %}</a>
+      <a href="{% url 'book_update' book.slug %}" ">{% include 'update_button.html' %}</a>
     {% endif %}
     {% if perms.catalog.delete_book %}
-    <a href=" {% url 'book_delete' book.pk %}">{% include 'delete_button.html' %}</a>
+    <a href=" {% url 'book_delete' book.slug %}">{% include 'delete_button.html' %}</a>
       {% endif %}
     </div>
   </div>
@@ -46,7 +46,7 @@ Book Detail
           <p><strong>Available on:</strong> {{ copy.due_back }}</p>
           {% endif %}
 
-          <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+          <p class="text-muted"><strong>Id:</strong> {{ copy.uuid }}</p>
         </div>
       </div>
     </div>

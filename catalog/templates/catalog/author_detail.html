@@ -6,10 +6,10 @@
   <h1 class="col-md-8">Author: <span class="display-4">{{ author }}</span></h1>
   <div class="col-md-4 d-flex justify-content-end align-items-center">
     {% if perms.catalog.change_author %}
-    <a href="{% url 'author_update' author.pk %}">{% include 'update_button.html' %}</a>
+    <a href="{% url 'author_update' author.slug %}">{% include 'update_button.html' %}</a>
     {% endif %}
     {% if perms.catalog.delete_author %}
-    <a href="{% url 'author_delete' author.pk %}">{% include 'delete_button.html' %}</a>
+    <a href="{% url 'author_delete' author.slug %}">{% include 'delete_button.html' %}</a>
     {% endif %}
   </div>
 </div>
@@ -40,7 +40,7 @@
   {% for book in author.book_set.all %}
   <tr>
     <th scope="row">{{ forloop.counter }}</th>
-    <td><a href="{% url 'book-detail' book.pk %}">{{ book }}</a></td>
+    <td><a href="{% url 'book-detail' book.slug %}">{{ book }}</a></td>
   </tr>
   {% endfor %}
 

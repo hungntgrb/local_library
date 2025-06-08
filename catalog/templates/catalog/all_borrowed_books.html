@@ -21,10 +21,10 @@ All Borrowed Books
   {% for bookinst in bookinstance_list %}
 
   <tr>
-    <td><a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a></td>
+    <td><a href="{% url 'book-detail' bookinst.book.slug %}">{{ bookinst.book.title }}</a></td>
     <td>{{ bookinst.borrower }}</td>
     <td class="{% if bookinst.is_overdue %}text-danger{% endif %}">{{ bookinst.due_back }}</td>
-    <td><a class="btn btn-brown-1" href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a></td>
+    <td><a class="btn btn-brown-1" href="{% url 'renew-book-librarian' bookinst.uuid %}">Renew</a></td>
   </tr>
   {% endfor %}
 </table>

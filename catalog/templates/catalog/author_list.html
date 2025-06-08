@@ -29,16 +29,16 @@ All Authors {% endblock title %}({{ num_of_authors }})
       {% for author in author_list %}
       <tr class="border-bottom border-light">
         <th scope="row" class="align-middle">
-          <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
+          <a href="{% url 'author-detail' author.slug %}">{{ author }}</a>
         </th>
 
         <td class="d-flex justify-content-end">
           {% if perms.catalog.change_author %}
-          <a href="{% url 'author_update' author.pk %}">{% include '../update_button.html' %}</a>
+          <a href="{% url 'author_update' author.slug %}">{% include '../update_button.html' %}</a>
           {% endif %}
 
           {% if perms.catalog.delete_author %}
-          <a href="{% url 'author_delete' author.pk %}">{% include '../delete_button.html' %}</a>
+          <a href="{% url 'author_delete' author.slug %}">{% include '../delete_button.html' %}</a>
           {% endif %}
         </td>
 

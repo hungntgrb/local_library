@@ -11,46 +11,52 @@
 
 {% block content %}
 
-{% if perms.catalog.add_book %}
-<a href="{% url 'book_create' %}" class="btn btn-brown-1 btn-center">Add a Book</a>
-{% endif %}
+  {% if perms.catalog.add_book %}
+    <a href="{% url 'book_create' %}" class="btn btn-brown-1 btn-center">Add a Book</a>
+  {% endif %}
 
-<hr>
-<div class="my-list">
+  <hr>
+  <div class="my-list">
 
-  <table class="table table-borderless table-hover table-green-1">
-    <thead class="bg-green-2">
-      <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Author</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for book in book_list %}
-      <tr class="border-bottom border-light">
-        <th scope="row">
-          <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a>
-        </th>
-        <td>
-          <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a>
-        </td>
-        <td>
-          <div class="d-flex justify-content-end">
-            {% if perms.catalog.change_book %}
-            <a href="{% url 'book_update' book.pk %}">{% include '../update_button.html' %}</a>
-            {% endif %}
-            {% if perms.catalog.delete_book %}
-            <a href="{% url 'book_delete' book.pk %}">{% include 'delete_button.html' %}</a>
-            {% endif %}
-          </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="table table-borderless table-hover table-green-1">
+      <thead class="bg-green-2">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in book_list %}
+          <tr class="border-bottom border-light">
+            <th scope="row">
+              <a href="{% url 'book-detail' book.slug %}">{{ book.title }}</a>
+            </th>
+            <td>
+              <a href="{% url 'author-detail' book.author.slug %}">{{ book.author }}</a>
+            </td>
+            <td>
+              <div class="d-flex justify-content-end">
+                {% if perms.catalog.change_book %}
+                  <a href="{% url 'book_update' book.slug %}">
+                    {% include '../update_button.html' %}
 
-</div>
+                  </a>
+                {% endif %}
+                {% if perms.catalog.delete_book %}
+                  <a href="{% url 'book_delete' book.slug %}">
+                    {% include 'delete_button.html' %}
+
+                  </a>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
 
 
 {% endblock content %}

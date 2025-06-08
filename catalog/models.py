@@ -66,7 +66,7 @@ class Book(MyBaseModel):
         return f"{self.title}"
 
     def get_absolute_url(self):
-        return reverse("book-detail", args=[str(self.pk)])
+        return reverse("book-detail", kwargs={"slug": self.slug})
 
     def display_genre(self):
         """String showing genre of book"""
@@ -145,7 +145,7 @@ class Author(MyBaseModel):
         )
 
     def get_absolute_url(self):
-        return reverse("author-detail", kwargs={"pk": self.pk})
+        return reverse("author-detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"

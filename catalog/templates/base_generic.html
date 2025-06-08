@@ -1,11 +1,15 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Library - {% block title %}{% endblock title %}</title>
+    <title>Local Library -
+      {% block title %}
+      {% endblock title %}
+    </title>
     <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
   </head>
 
@@ -13,12 +17,14 @@
 
     <nav class="navbar fixed-top navbar-expand-lg nav-bg">
       <a class="navbar-brand" href="/">
-        <svg class="bi bi-book mr-2" width="1.4em" height="1.4em" viewBox="0 0 16 16" fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-            d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z" />
-          <path fill-rule="evenodd"
-            d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z" />
+        <svg class="bi bi-book mr-2"
+             width="1.4em"
+             height="1.4em"
+             viewBox="0 0 16 16"
+             fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z" />
+          <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z" />
         </svg>
 
         <span class="d-none d-sm-inline">Hung's Library</span>
@@ -27,63 +33,98 @@
       <ul class="nav order-lg-last">
         {% if user.is_authenticated %}
 
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-            Chao <strong>{{ user.get_username }}</strong>
-          </a>
+          <li class="nav-item dropdown">
+            <a href="#"
+               class="nav-link dropdown-toggle"
+               id="userDropdown"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              Chao <strong>{{ user.get_username }}</strong>
+            </a>
 
-          <div class="dropdown-menu" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="{% url 'my-borrowed' %}">My books</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'users:my-logout' %}">Logout</a>
-          </div>
-        </li>
+            <div class="dropdown-menu" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="{% url 'my-borrowed' %}">My books</a>
+              <div class="dropdown-divider"></div>
+              {#  <a class="dropdown-item" href="{% url 'users:my-logout' %}">Logout</a> #}
+              <form method="post" action="{% url 'users:my-logout' %}">
+                {% csrf_token %}
+                <button class="dropdown-item" type="submit">Logout</button>
+              </form>
+            </div>
+          </li>
 
         {% else %}
 
-        <li class="nav-item"><a class="nav-link" href="{% url 'users:my-login' %}">Login</a>
-        </li>
-        <li class="nav-item"> <a class="nav-link" href="{% url 'users:register' %}">Register</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:my-login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
 
         {% endif %}
       </ul>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#libNav" aria-controls="libNav"
-        aria-expanded="false" aria-label="Toggle Navigation">
-        <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-            d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#libNav"
+              aria-controls="libNav"
+              aria-expanded="false"
+              aria-label="Toggle Navigation">
+        <svg width="1.2em"
+             height="1.2em"
+             viewBox="0 0 16 16"
+             class="bi bi-list"
+             fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
         </svg>
       </button>
 
       <div class="collapse navbar-collapse " id="libNav">
 
         <ul class="navbar-nav ">
-          <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}"><a class="nav-link"
-              href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+          </li>
 
-          <li class="nav-item {% if request.resolver_match.url_name == 'books' %}active{% endif %}"><a class="nav-link"
-              href="{% url 'books' %}">Books</a></li>
-          <li class="nav-item {% if request.resolver_match.url_name == 'authors' %}active{% endif %}"><a
-              class="nav-link" href="{% url 'authors' %}">Authors</a></li>
-          <li class="nav-item {% if request.resolver_match.url_name == 'avail_books' %}active{% endif %}"><a
-              class="nav-link" href="{% url 'avail_books' %}">On Shelf</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'books' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'books' %}">Books</a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'authors' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'authors' %}">Authors</a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'avail_books' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'avail_books' %}">On Shelf</a>
+          </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Staff Only</a>
+            <a class="nav-link dropdown-toggle"
+               id=""
+               href="#"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">Staff Only</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{% url 'all-borrowed' %}">All borrowed books</a>
             </div>
           </li>
         </ul>
         {# ------------ Search Bar ------------ #}
-        <form action="{% url 'search_result' %}" class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2" method="GET" autocomplete="off">
+        <form action="{% url 'search_result' %}"
+              class="form-inline mt-2 mt-md-0 ml-md-auto mr-lg-2"
+              method="GET"
+              autocomplete="off">
           {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" placeholder="vd. Harry Potter" aria-label="Search" name="q"
-            id="search-bar">
+          <input class="form-control mr-sm-2"
+                 type="search"
+                 placeholder="vd. Harry Potter"
+                 aria-label="Search"
+                 name="q"
+                 id="search-bar">
           <button class="btn btn-brown-3 my-2 my-sm-0" type="submit">Search</button>
         </form>
 
@@ -98,43 +139,44 @@
       {# ------------ Messages ------------ #}
       {% if messages %}
 
-      {% for message in messages %}
-      <div class="alert alert-{{message.level_tag}} alert-dismissible" role="alert">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.level_tag }} alert-dismissible"
+               role="alert">
 
-        {% if "safe" in message.extra_tags %}
-        {{ message|safe }}
-        {% else %}
-        {{ message }}
-        {% endif %}
+            {% if "safe" in message.extra_tags %}
+              {{ message|safe }}
+            {% else %}
+              {{ message }}
+            {% endif %}
 
-        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
-      {% endfor %}
+        {% endfor %}
       {% endif %}
       {# ------------ End Messages ------------ #}
       {# ------------ Form Errors ------------ #}
       {% if form.errors %}
-      {% for field in form %}
-      {% for error in field.errors %}
-      <div class="alert alert-danger alert-dismissible" role="alert">
-        <strong>{{ error|escape }}</strong>
-        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %}
-      {% endfor %}
-      {% for error in form.non_field_errors %}
-      <div class="alert alert-danger alert-dismissible" role="alert">
-        <strong>{{ error|escape }}</strong>
-        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %}
+        {% for field in form %}
+          {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <strong>{{ error|escape }}</strong>
+              <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>{{ error|escape }}</strong>
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
       {% endif %}
       {# ------------ End Form Errors ------------ #}
       {# ------------ Heading ------------ #}
@@ -148,25 +190,27 @@
 
       {# ------------ Pagination ------------ #}
       {% if is_paginated %}
-      <nav aria-label="Pages" class="mt-3">
-        <ul class="pagination justify-content-center">
-          {% if page_obj.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
-          </li>
-          {% endif %}
-          <li class="page-item">
-            <span class="sr-only">(Current)</span>
-            <a href="" class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
-          </li>
-          {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
-          </li>
+        <nav aria-label="Pages" class="mt-3">
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link"
+                   href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+              </li>
+            {% endif %}
+            <li class="page-item">
+              <span class="sr-only">(Current)</span>
+              <a href="" class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link"
+                   href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+              </li>
 
-          {% endif %}
-        </ul>
-      </nav>
+            {% endif %}
+          </ul>
+        </nav>
       {% endif %}
       {# ------------ End Pagination ------------ #}
 
@@ -174,22 +218,26 @@
     {# ------------ End Container ------------ #}
 
     <footer>
-      <div>Written with <span class="django">Django</span></div>
-      <div class="my-name"><strong>Nguyễn Thanh Hùng</strong> &copy; 2020</div>
+      <div>
+        Written with <span class="django">Django</span>
+      </div>
+      <div class="my-name">
+        <strong>Nguyễn Thanh Hùng</strong> &copy; 2020
+      </div>
     </footer>
 
     {% block extra_script %}
     {% endblock extra_script %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"></script>
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"></script>
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"></script>
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
 
   </body>
 

@@ -5,7 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views import generic
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
@@ -22,14 +23,15 @@ class HelperFunctions:
         return request.user.bookinstance_set.count() == 3
 
     def userCurrentlyBorrowingThatBook(self, request, uid):
-        bookCopy = BookInstance.objects.get(pk=uid)
-        userIsHaving = map(
-            lambda x: x.book, request.user.bookinstance_set.all())
+        bookCopy = BookInstance.objects.get(uuid=uid)
+        userIsHaving = map(lambda x: x.book, request.user.bookinstance_set.all())
         return bookCopy.book in userIsHaving
 
     def errorMsg_HTML_Safe(self, request, msg):
         messages.error(
-            request, msg, extra_tags="safe",
+            request,
+            msg,
+            extra_tags="safe",
         )
 
     def setTheBookIsNotAvailableForTheNext_3_Weeks(self, request, bookCopy):
@@ -45,8 +47,7 @@ hf = HelperFunctions()
 def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
-    num_instances_available = BookInstance.objects.filter(
-        status__exact="a").count()
+    num_instances_available = BookInstance.objects.filter(status__exact="a").count()
     num_authors = Author.objects.count()
     num_genres = Genre.objects.count()
 
@@ -66,7 +67,7 @@ def index(request):
     return render(request, "index.html", context=context)
 
 
-class BookListView(generic.ListView):
+class BookListView(ListView):
     queryset = Book.objects.all().order_by("title")
     paginate_by = 6
 
@@ -76,13 +77,13 @@ class BookListView(generic.ListView):
         return context
 
 
-class AvailableBookListView(generic.ListView):
+class AvailableBookListView(ListView):
     queryset = BookInstance.objects.filter(status="a").order_by("book")
     template_name = "catalog/available_books.html"
 
 
 def borrow_a_book(request, uid):
-    book_copy = BookInstance.objects.get(pk=uid)
+    book_copy = BookInstance.objects.get(uuid=uid)
 
     # Only borrow 1 copy of a book at one time
     if hf.userCurrentlyBorrowingThatBook(request, uid):
@@ -91,6 +92,7 @@ def borrow_a_book(request, uid):
             f'You are currently borrowing a copy of <a class="alert-link">{book_copy.book}</a>.',
         )
         return redirect(reverse("avail_books"))
+
     elif hf.userCurrentlyBorrowed_3_Books(request):
         my_books = reverse("my-borrowed")
         hf.errorMsg_HTML_Safe(
@@ -111,7 +113,7 @@ def borrow_a_book(request, uid):
 
 
 def return_a_book(request, uid):
-    book_copy = BookInstance.objects.filter(pk=uid)
+    book_copy = BookInstance.objects.filter(uuid=uid)
     changes = {"status": "a", "borrower": None, "due_back": None}
     book_copy.update(**changes)
 
@@ -126,7 +128,7 @@ def return_a_book(request, uid):
     return redirect(reverse("my-borrowed"))
 
 
-class BooksLoanedByUserListView(LoginRequiredMixin, generic.ListView):
+class BooksLoanedByUserListView(LoginRequiredMixin, ListView):
     """A list view of books that are on loan by current user"""
 
     # model = BookInstance
@@ -141,9 +143,7 @@ class BooksLoanedByUserListView(LoginRequiredMixin, generic.ListView):
         )
 
 
-class AllBorrowedBooksListView(
-    LoginRequiredMixin, PermissionRequiredMixin, generic.ListView
-):
+class AllBorrowedBooksListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """A view available for Librarians to see all borrowed books"""
 
     model = BookInstance
@@ -156,12 +156,15 @@ class AllBorrowedBooksListView(
         return BookInstance.objects.filter(status__exact="o").order_by("due_back")
 
 
-class BookDetailView(generic.DetailView):
+class BookDetailView(DetailView):
     model = Book
     redirect_field_name = "chuyen_toi"
 
 
-class AuthorListView(generic.ListView):
+book_detail = BookDetailView.as_view()
+
+
+class AuthorListView(ListView):
     queryset = Author.objects.all().order_by("first_name")
     paginate_by = 6
 
@@ -171,13 +174,13 @@ class AuthorListView(generic.ListView):
         return context
 
 
-class AuthorDetailView(generic.DetailView):
+class AuthorDetailView(DetailView):
     model = Author
 
 
 @permission_required("catalog.can_mark_returned")
-def renew_book_librarian(request, pk):
-    book_instance = get_object_or_404(BookInstance, pk=pk)
+def renew_book_librarian(request, uid):
+    book_instance = get_object_or_404(BookInstance, uuid=uid)
 
     if request.method == "POST":
         form = RenewBookModelForm(request.POST)
@@ -237,6 +240,9 @@ class BookUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = f"Book successfully updated!"
 
 
+book_update = BookUpdate.as_view()
+
+
 class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Book
     permission_required = "catalog.delete_book"
@@ -246,8 +252,7 @@ class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
 
 def search_view(request):
     q = request.GET.get("q")
-    book_results = Book.objects.filter(
-        Q(title__icontains=q) | Q(summary__icontains=q))
+    book_results = Book.objects.filter(Q(title__icontains=q) | Q(summary__icontains=q))
     author_results = Author.objects.filter(
         Q(first_name__icontains=q) | Q(last_name__icontains=q)
     )
@@ -263,7 +268,9 @@ def send_an_email(request):
         subject="Hello from Django!",
         message="A very interesing body.",
         from_email=os.environ.get("EMAIL_USER1"),
-        recipient_list=["hungnt892@gmail.com",],
+        recipient_list=[
+            "hungnt892@gmail.com",
+        ],
         fail_silently=False,
         html_message="<h1>Test HTML</h1>",
     )
