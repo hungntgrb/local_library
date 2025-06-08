@@ -1,0 +1,223 @@
+version = 1
+revision = 2
+requires-python = ">=3.12"
+
+[[package]]
+name = "asgiref"
+version = "3.8.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/29/38/b3395cc9ad1b56d2ddac9970bc8f4141312dbaec28bc7c218b0dfafd0f42/asgiref-3.8.1.tar.gz", hash = "sha256:c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590", size = 35186, upload-time = "2024-03-22T14:39:36.863Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/39/e3/893e8757be2612e6c266d9bb58ad2e3651524b5b40cf56761e985a28b13e/asgiref-3.8.1-py3-none-any.whl", hash = "sha256:3e1e3ecc849832fe52ccf2cb6686b7a55f82bb1d6aee72a58826471390335e47", size = 23828, upload-time = "2024-03-22T14:39:34.521Z" },
+]
+
+[[package]]
+name = "autopep8"
+version = "2.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pycodestyle" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b2/03/49cb49b37a4d51721ece9c628eb9441f9a4e26ee98ad6e5505238d5b2d7a/autopep8-2.0.2.tar.gz", hash = "sha256:f9849cdd62108cb739dbcdbfb7fdcc9a30d1b63c4cc3e1c1f893b5360941b61c", size = 116154, upload-time = "2023-03-03T09:21:40.083Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3c/24/4eadb64c81c10b354b0c2b6a54a3542c3ce112954cc4effff038beafb009/autopep8-2.0.2-py2.py3-none-any.whl", hash = "sha256:86e9303b5e5c8160872b2f5ef611161b2893e9bfe8ccc7e2f76385947d57a2f1", size = 45164, upload-time = "2023-03-03T09:21:38.371Z" },
+]
+
+[[package]]
+name = "coverage"
+version = "7.2.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/78/3e/8e2d27ae0ec92d009c2906d21f15f5936cfddc5bb5660f5bb50c521c4114/coverage-7.2.4.tar.gz", hash = "sha256:7283f78d07a201ac7d9dc2ac2e4faaea99c4d302f243ee5b4e359f3e170dc008", size = 759129, upload-time = "2023-04-28T10:18:55.701Z" }
+
+[[package]]
+name = "crispy-bootstrap4"
+version = "2022.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "django-crispy-forms" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5e/be/d8203e4dacbcee891875c741eb6f1d615da2f26a1367085adf278e2929d5/crispy-bootstrap4-2022.1.tar.gz", hash = "sha256:f18386c4d96180c1bb1212487d6e8f5a3dd1a9bb58d3032183973d4d130b55f9", size = 10941, upload-time = "2022-12-17T07:31:27.836Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/91/71/cbfa04246b137f69eefa58029e9247064284ea722ba140b07a4244cc8478/crispy_bootstrap4-2022.1-py3-none-any.whl", hash = "sha256:5241ab1dc2188c95560aa786439bcbedec7416e6b0f5a52dded82380810367ec", size = 22974, upload-time = "2022-12-17T07:31:26.408Z" },
+]
+
+[[package]]
+name = "dj-database-url"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/12/86/baa0420d364dc9b3d78198ff6a73c2f41d8997026ddb36615d07dbf4c472/dj-database-url-2.0.0.tar.gz", hash = "sha256:a35a9f0f43775ca6f90d819dc456233ef7bcc76b47377d5d908b75c7eb320624", size = 10364, upload-time = "2023-04-27T15:37:30.1Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6c/82/46c4560efd5117aa2a8365ed07f5267b297a1afa024411abe51e3a09fbd9/dj_database_url-2.0.0-py3-none-any.whl", hash = "sha256:9c9e5f7224f62635a787e9cc3c6762c9be2b19541a21e3c08fa573bd01609b4b", size = 7648, upload-time = "2023-04-27T15:38:03.366Z" },
+]
+
+[[package]]
+name = "django"
+version = "5.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgiref" },
+    { name = "sqlparse" },
+    { name = "tzdata", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4c/1b/c6da718c65228eb3a7ff7ba6a32d8e80fa840ca9057490504e099e4dd1ef/Django-5.2.tar.gz", hash = "sha256:1a47f7a7a3d43ce64570d350e008d2949abe8c7e21737b351b6a1611277c6d89", size = 10824891, upload-time = "2025-04-02T13:08:06.874Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/63/e0/6a5b5ea350c5bd63fe94b05e4c146c18facb51229d9dee42aa39f9fc2214/Django-5.2-py3-none-any.whl", hash = "sha256:91ceed4e3a6db5aedced65e3c8f963118ea9ba753fc620831c77074e620e7d83", size = 8301361, upload-time = "2025-04-02T13:08:01.465Z" },
+]
+
+[[package]]
+name = "django-crispy-forms"
+version = "2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c7/63/a6be73ce8997d02acc6890b5698a4ee95a30404fbf30b998652b30b7dec7/django-crispy-forms-2.0.tar.gz", hash = "sha256:90193b068bf948d9c68449bc8260afed1a8e2afe11ee0bac8c4ebfaeb175b322", size = 277697, upload-time = "2023-02-13T19:14:53.852Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/dc/b4/335e9c6fbc16faf5df000533311389f141f61173c58a89e8ae655a42660c/django_crispy_forms-2.0-py3-none-any.whl", hash = "sha256:d1d4e585929058a9ab3b797666ea5b69320b9ba7937f9d146d32173246a6fd13", size = 31423, upload-time = "2023-02-13T19:14:52.387Z" },
+]
+
+[[package]]
+name = "django-local-library"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "autopep8" },
+    { name = "coverage" },
+    { name = "crispy-bootstrap4" },
+    { name = "dj-database-url" },
+    { name = "django" },
+    { name = "django-crispy-forms" },
+    { name = "djangorestframework" },
+    { name = "faker" },
+    { name = "psycopg2" },
+    { name = "pycodestyle" },
+    { name = "python-dateutil" },
+    { name = "whitenoise" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "autopep8", specifier = "==2.0.2" },
+    { name = "coverage", specifier = "==7.2.4" },
+    { name = "crispy-bootstrap4", specifier = "==2022.1" },
+    { name = "dj-database-url", specifier = "==2.0.0" },
+    { name = "django", specifier = "==5.2" },
+    { name = "django-crispy-forms", specifier = "==2.0" },
+    { name = "djangorestframework", specifier = "==3.14.0" },
+    { name = "faker", specifier = "==18.6.0" },
+    { name = "psycopg2", specifier = "==2.9.6" },
+    { name = "pycodestyle", specifier = "==2.10.0" },
+    { name = "python-dateutil", specifier = "==2.8.2" },
+    { name = "whitenoise", specifier = "==6.4.0" },
+]
+
+[[package]]
+name = "djangorestframework"
+version = "3.14.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+    { name = "pytz" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8e/53/5b2a002c5ebafd60dff1e1945a7d63dee40155830997439a9ba324f0fd50/djangorestframework-3.14.0.tar.gz", hash = "sha256:579a333e6256b09489cbe0a067e66abe55c6595d8926be6b99423786334350c8", size = 1055343, upload-time = "2022-09-22T11:38:44.245Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ff/4b/3b46c0914ba4b7546a758c35fdfa8e7f017fcbe7f23c878239e93623337a/djangorestframework-3.14.0-py3-none-any.whl", hash = "sha256:eb63f58c9f218e1a7d064d17a70751f528ed4e1d35547fdade9aaf4cd103fd08", size = 1062761, upload-time = "2022-09-22T11:38:41.825Z" },
+]
+
+[[package]]
+name = "faker"
+version = "18.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "python-dateutil" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/22/cd/72893a69f7382a0d8459d6aaa643c8c1da1a47e19beb8f467edbf2929229/Faker-18.6.0.tar.gz", hash = "sha256:ac903ba8cb5adbce2cdd15e5536118d484bbe01126f3c774dd9f6df77b61232d", size = 1664811, upload-time = "2023-04-27T15:13:14.145Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/35/7f/6b21c8a3b49f1d7ed1836a5fcf07dceff21682028000c941cde3ae6cd751/Faker-18.6.0-py3-none-any.whl", hash = "sha256:49060d40e6659e116f53353c5771ad2f2cbcd12b15771f49e3000a3a451f13ec", size = 1705208, upload-time = "2023-04-27T15:13:10.25Z" },
+]
+
+[[package]]
+name = "psycopg2"
+version = "2.9.6"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/af/c4/5726cddb53fe52f0e839eb3da04322364f14493217ebd5818cc5e4c948a5/psycopg2-2.9.6.tar.gz", hash = "sha256:f15158418fd826831b28585e2ab48ed8df2d0d98f502a2b4fe619e7d5ca29011", size = 383979, upload-time = "2023-04-03T11:36:37.244Z" }
+
+[[package]]
+name = "pycodestyle"
+version = "2.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/06/6b/5ca0d12ef7dcf7d20dfa35287d02297f3e0f9e515da5183654c03a9636ce/pycodestyle-2.10.0.tar.gz", hash = "sha256:347187bdb476329d98f695c213d7295a846d1152ff4fe9bacb8a9590b8ee7053", size = 101916, upload-time = "2022-11-23T18:27:28.377Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/54/001fdc0d69e8d0bb86c3423a6fa6dfada8cc26317c2635ab543e9ac411bd/pycodestyle-2.10.0-py2.py3-none-any.whl", hash = "sha256:8a4eaf0d0495c7395bdab3589ac2db602797d76207242c17d470186815706610", size = 41276, upload-time = "2022-11-23T18:27:26.474Z" },
+]
+
+[[package]]
+name = "python-dateutil"
+version = "2.8.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "six" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86", size = 357324, upload-time = "2021-07-14T08:19:19.783Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9", size = 247702, upload-time = "2021-07-14T08:19:18.161Z" },
+]
+
+[[package]]
+name = "pytz"
+version = "2023.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/32/12032aa8c673ee16707a9b6cdda2b09c0089131f35af55d443b6a9c69c1d/pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588", size = 317095, upload-time = "2023-03-29T04:23:28.655Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7f/99/ad6bd37e748257dd70d6f85d916cafe79c0b0f5e2e95b11f7fbc82bf3110/pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb", size = 502345, upload-time = "2023-03-29T04:23:25.307Z" },
+]
+
+[[package]]
+name = "six"
+version = "1.16.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926", size = 34041, upload-time = "2021-05-05T14:18:18.379Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254", size = 11053, upload-time = "2021-05-05T14:18:17.237Z" },
+]
+
+[[package]]
+name = "sqlparse"
+version = "0.4.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/65/16/10f170ec641ed852611b6c9441b23d10b5702ab5288371feab3d36de2574/sqlparse-0.4.4.tar.gz", hash = "sha256:d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c", size = 72383, upload-time = "2023-04-18T08:30:41.994Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/5a/66d7c9305baa9f11857f247d4ba761402cea75db6058ff850ed7128957b7/sqlparse-0.4.4-py3-none-any.whl", hash = "sha256:5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3", size = 41183, upload-time = "2023-04-18T08:30:36.96Z" },
+]
+
+[[package]]
+name = "typing-extensions"
+version = "4.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/20/06270dac7316220643c32ae61694e451c98f8caf4c8eab3aa80a2bedf0df/typing_extensions-4.5.0.tar.gz", hash = "sha256:5cb5f4a79139d699607b3ef622a1dedafa84e115ab0024e0d9c044a9479ca7cb", size = 52399, upload-time = "2023-02-15T00:17:55.502Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/31/25/5abcd82372d3d4a3932e1fa8c3dbf9efac10cc7c0d16e78467460571b404/typing_extensions-4.5.0-py3-none-any.whl", hash = "sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4", size = 27736, upload-time = "2023-02-15T00:17:53.726Z" },
+]
+
+[[package]]
+name = "tzdata"
+version = "2023.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/70/e5/81f99b9fced59624562ab62a33df639a11b26c582be78864b339dafa420d/tzdata-2023.3.tar.gz", hash = "sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a", size = 187483, upload-time = "2023-03-29T01:41:04.086Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d5/fb/a79efcab32b8a1f1ddca7f35109a50e4a80d42ac1c9187ab46522b2407d7/tzdata-2023.3-py2.py3-none-any.whl", hash = "sha256:7e65763eef3120314099b6939b5546db7adce1e7d6f2e179e3df563c70511eda", size = 341835, upload-time = "2023-03-29T01:41:02.776Z" },
+]
+
+[[package]]
+name = "whitenoise"
+version = "6.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/77/76/3e0c97bf1b842c738d46049be09f2a1f0d7267b0fc9739968529e3c58a6c/whitenoise-6.4.0.tar.gz", hash = "sha256:a02d6660ad161ff17e3042653c8e3f5ecbb2a2481a006bde125b9efb9a30113a", size = 24965, upload-time = "2023-02-25T07:25:42.931Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4d/25/03924d8387e91b44e88abfa16e8d0d197b04dbf7cce2e53b9ecccc5792bf/whitenoise-6.4.0-py3-none-any.whl", hash = "sha256:599dc6ca57e48929dfeffb2e8e187879bfe2aed0d49ca419577005b7f2cc930b", size = 19841, upload-time = "2023-02-25T07:25:41.652Z" },
+]
