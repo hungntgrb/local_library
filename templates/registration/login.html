@@ -1,34 +1,26 @@
 {% extends 'base_generic.html' %}
 {% load crispy_forms_tags %}
-
 {% block heading %}
-Login
+    Login
 {% endblock heading %}
-
 {% block content %}
-<hr>
-{% if next %}
-
-{% if user.is_authenticated %}
-<p class="alert alert-warning" role="alert">Please login with an account that has access.</p>
-{% else %}
-<p class="alert alert-warning" role="alert">Please login to view.</p>
-{% endif %}
-
-{% endif %}
-
-<div class="my-list">
-  <form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form | crispy }}
-
-    <input class="btn btn-block btn-brown-1" type="submit" value="Login">
-    <input type="hidden" name="next" value="{{ next }}">
-  </form>
-
-  <a href="{% url 'password_reset' %}">
-    <p class="text-muted my-3"> Lost password?</p>
-  </a>
-</div>
-
+    <hr>
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p class="alert alert-warning" role="alert">Please login with an account that has access.</p>
+        {% else %}
+            <p class="alert alert-warning" role="alert">Please login to view.</p>
+        {% endif %}
+    {% endif %}
+    <div class="my-list">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <input class="btn btn-block btn-brown-1" type="submit" value="Login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+        <a href="{% url 'password_reset' %}">
+            <p class="text-muted my-3">Lost password?</p>
+        </a>
+    </div>
 {% endblock content %}
