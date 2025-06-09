@@ -1,37 +1,60 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("books/", views.BookListView.as_view(), name="books"),
-    path("books/available/", views.AvailableBookListView.as_view(), name="avail_books"),
-    path("books/<slug:slug>/", views.book_detail, name="book-detail"),
-    # ------ CRUD Book ------
-    path("add-a-book/", views.BookCreate.as_view(), name="book_create"),
-    path("books/<slug:slug>/update/", views.book_update, name="book_update"),
-    path("books/<slug:slug>/delete/", views.BookDelete.as_view(), name="book_delete"),
-    path("borrow/<uuid:uid>/", views.borrow_a_book, name="borrow_a_book"),
-    path("return/<uuid:uid>/", views.return_a_book, name="return_a_book"),
-    # ----------------------------------------------
-    path("mybooks/", views.BooksLoanedByUserListView.as_view(), name="my-borrowed"),
     path(
-        "borrowed-books/", views.AllBorrowedBooksListView.as_view(), name="all-borrowed"
+        "books/",
+        include(
+            [
+                path("", views.book_list, name="books"),
+                path("available/", views.available_book_list, name="avail_books"),
+                path("add-new/", views.book_create, name="book_create"),
+                path(
+                    "my-borrows/",
+                    views.BooksLoanedByUserListView.as_view(),
+                    name="my-borrowed",
+                ),
+            ]
+        ),
     ),
     path(
-        "book/<uuid:uid>/renew/",
-        views.renew_book_librarian,
-        name="renew-book-librarian",
+        "books/<slug:slug>/",
+        include(
+            [
+                path("", views.book_detail, name="book-detail"),
+                path("update/", views.book_update, name="book_update"),
+                path("delete/", views.book_delete, name="book_delete"),
+            ]
+        ),
+    ),
+    path(
+        "copies/",
+        include(
+            [
+                path("all-borrowed/", views.all_borrowed_copies, name="all-borrowed"),
+                path("<uuid:uid>/borrow/", views.borrow_a_book, name="borrow_a_book"),
+                path("<uuid:uid>/return/", views.return_a_book, name="return_a_book"),
+                path(
+                    "<uuid:uid>/renew/",
+                    views.renew_book_librarian,
+                    name="renew-book-librarian",
+                ),
+            ]
+        ),
     ),
     # ----------------- Author ---------------------
-    path("authors/", views.AuthorListView.as_view(), name="authors"),
-    path("author/<slug:slug>", views.AuthorDetailView.as_view(), name="author-detail"),
-    # -------- CRUD Author ------------
-    path("author/create/", views.AuthorCreate.as_view(), name="author_create"),
+    path("authors/", views.author_list, name="authors"),
+    path("authors/create/", views.author_create, name="author_create"),
     path(
-        "author/<slug:slug>/update/", views.AuthorUpdate.as_view(), name="author_update"
-    ),
-    path(
-        "author/<slug:slug>/delete/", views.AuthorDelete.as_view(), name="author_delete"
+        "authors/<slug:slug>/",
+        include(
+            [
+                path("", views.author_detail, name="author-detail"),
+                path("update/", views.author_update, name="author_update"),
+                path("delete/", views.author_delete, name="author_delete"),
+            ]
+        ),
     ),
     # ------- Search ---------
     path("search-result/", views.search_view, name="search_result"),
