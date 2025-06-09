@@ -1,12 +1,13 @@
 import uuid
 from datetime import date
-from django_extensions.db.fields import AutoSlugField
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from locallibrary.models import MyBaseModel
+from .helpers import my_slugify
 
 
 class Genre(MyBaseModel):
@@ -32,7 +33,7 @@ class Book(MyBaseModel):
     title = models.CharField(
         max_length=200, help_text=_("Title of the book."), blank=False, null=False
     )
-    slug = AutoSlugField(populate_from=["title"])
+    slug = models.SlugField(max_length=200, blank=True, unique=True)
 
     author = models.ForeignKey(
         "Author", on_delete=models.SET_NULL, blank=True, null=True
@@ -64,6 +65,10 @@ class Book(MyBaseModel):
 
     def __str__(self):
         return f"{self.title}"
+
+    def clean(self, **kwargs):
+        if self.slug == "":
+            self.slug = my_slugify(self.title)
 
     def get_absolute_url(self):
         return reverse("book-detail", kwargs={"slug": self.slug})
@@ -109,7 +114,7 @@ class BookInstance(MyBaseModel):
         permissions = (("can_mark_returned", "Set books as return"),)
 
     def __str__(self):
-        return f"{self.pk} ({self.book.title})"
+        return f"{self.book.title}"
 
     @property
     def is_overdue(self):
@@ -122,11 +127,11 @@ class BookInstance(MyBaseModel):
 
     @property
     def is_on_loan(self):
-        return self.status == "o" and self.borrower is not None
+        return (self.status == "o") and (self.borrower is not None)
 
     @property
     def is_available(self):
-        return self.status == "a" and self.borrower is None
+        return (self.status == "a") and (self.borrower is None)
 
 
 class Author(MyBaseModel):
@@ -136,13 +141,21 @@ class Author(MyBaseModel):
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(_("Born"), blank=True, null=True)
     date_of_death = models.DateField(_("Died"), blank=True, null=True)
-    slug = AutoSlugField(populate_from=["first_name", "last_name"])
+    slug = models.SlugField(max_length=150, blank=True, unique=True)
 
     class Meta:
         ordering = ("last_name", "first_name")
         permissions = (
             ("can_crud_author", "Can create, retrieve, update, delete author"),
         )
+
+    def clean(self, **kwargs):
+        if self.slug == "":
+            self.slug = my_slugify(self.fullname)
+
+    @property
+    def fullname(self):
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse("author-detail", kwargs={"slug": self.slug})
