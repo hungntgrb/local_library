@@ -1,9 +1,9 @@
 [project]
 name = "django-local-library"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Local Library app with Django"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = "==3.12.0"
 dependencies = [
     "autopep8==2.0.2",
     "coverage==7.2.4",
@@ -11,10 +11,19 @@ dependencies = [
     "dj-database-url==2.0.0",
     "django==5.2",
     "django-crispy-forms==2.0",
+    "django-environ==0.12.0",
+    "django-extensions==4.1",
     "djangorestframework==3.14.0",
     "faker==18.6.0",
     "psycopg2==2.9.6",
+    "psycopg[binary]>=3.2.9",
     "pycodestyle==2.10.0",
     "python-dateutil==2.8.2",
     "whitenoise==6.4.0",
 ]
+
+[tool.djlint]
+blank_line_after_tag="load,extends,include"
+indent=2
+max_blank_lines=2
+profile="django"
