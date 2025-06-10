@@ -1,11 +1,18 @@
-import dj_database_url
+import environ
 import os
 from django.contrib.messages import constants
 from pathlib import Path
 
+env = environ.Env(
+    DEBUG=(bool, False),
+    DB_PORT=(int, 5432),
+)
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = '...'
+environ.Env.read_env(BASE_DIR / ".env")
+
+SECRET_KEY = ""
 DEBUG = True
 
 # ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1"]
@@ -110,10 +117,6 @@ MEDIA_ROOT = BASE_DIR/"media_root"
 LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "/catalog/books/"
 LOGOUT_REDIRECT_URL = "/catalog/books/"
-
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES["default"].update(db_from_env)
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
