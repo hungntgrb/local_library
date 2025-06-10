@@ -77,9 +77,15 @@ class BookListView(ListView):
         return context
 
 
+book_list = BookListView.as_view()
+
+
 class AvailableBookListView(ListView):
     queryset = BookInstance.objects.filter(status="a").order_by("book")
     template_name = "catalog/available_books.html"
+
+
+available_book_list = AvailableBookListView.as_view()
 
 
 def borrow_a_book(request, uid):
@@ -156,6 +162,9 @@ class AllBorrowedBooksListView(LoginRequiredMixin, PermissionRequiredMixin, List
         return BookInstance.objects.filter(status__exact="o").order_by("due_back")
 
 
+all_borrowed_copies = AllBorrowedBooksListView.as_view()
+
+
 class BookDetailView(DetailView):
     model = Book
     redirect_field_name = "chuyen_toi"
@@ -174,8 +183,16 @@ class AuthorListView(ListView):
         return context
 
 
+author_list = AuthorListView.as_view()
+
+
 class AuthorDetailView(DetailView):
     model = Author
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
+
+author_detail = AuthorDetailView.as_view()
 
 
 @permission_required("catalog.can_mark_returned")
@@ -203,10 +220,13 @@ def renew_book_librarian(request, uid):
 
 class AuthorCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Author
-    fields = "__all__"
+    fields = ("first_name", "last_name", "date_of_birth", "date_of_death")
     initial = {"date_of_death": "02/01/2020"}
     permission_required = "catalog.add_author"
     success_message = f"Author created successfully!"
+
+
+author_create = AuthorCreate.as_view()
 
 
 class AuthorUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -216,12 +236,17 @@ class AuthorUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = f"<%(first_name)s %(last_name)s> has been successfully updated!"
 
 
+author_update = AuthorUpdate.as_view()
+
+
 class AuthorDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Author
     permission_required = "catalog.delete_author"
     success_url = reverse_lazy("authors")
-    success_message = f"Author deleted!"
+    success_message = f"Deleted author %(first_name)s %(last_name)s!"
 
+
+author_delete = AuthorDelete.as_view()
 
 # ------------ CREATE, UPDATE, DELETE BOOK ------------ #
 
@@ -231,6 +256,9 @@ class BookCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     fields = ["title", "author", "summary", "isbn", "genre", "language"]
     permission_required = "catalog.add_book"
     success_message = f"Book successfully created!"
+
+
+book_create = BookCreate.as_view()
 
 
 class BookUpdate(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -250,6 +278,9 @@ class BookDelete(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = f"Book successfully deleted!"
 
 
+book_delete = BookDelete.as_view()
+
+
 def search_view(request):
     q = request.GET.get("q")
     book_results = Book.objects.filter(Q(title__icontains=q) | Q(summary__icontains=q))
@@ -260,6 +291,7 @@ def search_view(request):
         "books": book_results,
         "authors": author_results,
     }
+
     return render(request, "catalog/search_result.html", context)
 
 
@@ -275,4 +307,5 @@ def send_an_email(request):
         html_message="<h1>Test HTML</h1>",
     )
     messages.success(request, "Email sent!")
+
     return redirect(reverse("index"))
