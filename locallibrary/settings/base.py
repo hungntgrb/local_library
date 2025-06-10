@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "crispy_forms",
     "crispy_bootstrap4",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -53,7 +54,9 @@ ROOT_URLCONF = "locallibrary.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR/"templates",],
+        "DIRS": [
+            BASE_DIR / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -76,15 +79,21 @@ WSGI_APPLICATION = "locallibrary.wsgi.application"
 #     }
 # }
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 PASSWORD_MIN_LENGTH = 8
@@ -104,7 +113,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR/"static_root"
+STATIC_ROOT = BASE_DIR / "static_root"
 
 
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -112,7 +121,7 @@ STATIC_ROOT = BASE_DIR/"static_root"
 # STORAGES = None
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR/"media_root"
+MEDIA_ROOT = BASE_DIR / "media_root"
 
 LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "/catalog/books/"
@@ -127,4 +136,6 @@ MESSAGE_TAGS = {
 }
 
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CSRF_TRUSTED_ORIGINS = []
