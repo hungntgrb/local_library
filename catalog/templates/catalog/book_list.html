@@ -33,7 +33,11 @@
               <a href="{% url 'book-detail' book.slug %}">{{ book.title }}</a>
             </th>
             <td>
-              <a href="{% url 'author-detail' book.author.slug %}">{{ book.author }}</a>
+              {% if book.author %}
+                <a href="{% url 'author-detail' book.author.slug %}">{{ book.author }}</a>
+              {% else %}
+                <a href="#no-data" >No data</a>
+              {% endif %}
             </td>
             <td>
               <div class="d-flex justify-content-end">

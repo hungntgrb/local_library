@@ -8,7 +8,7 @@
 
   <hr />
 
-  <!--- REGROUP -->
+  {# -- REGROUP -- #}
   {% regroup object_list by book as book_list %}
 
   <div class="my-list">
@@ -39,7 +39,7 @@
                   <li class="list-group-item d-flex justify-content-between">
                     <div class="d-flex flex-column">
                       <span><strong>Imprint:</strong> {{ copy_.imprint }}</span>
-                      <span><strong>Id:</strong> {{ copy_.id|truncatechars:12 }}</span>
+                      <span><strong>Id:</strong> {{ copy_.uuid }}</span>
                     </div>
 
                     {% if user.is_authenticated %}

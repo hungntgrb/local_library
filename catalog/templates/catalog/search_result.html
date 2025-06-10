@@ -20,7 +20,9 @@ Search Results
       <tbody>
         {% for book in books %}
         <tr class="border-bottom border-dark">
-          <td><a href="{% url 'book-detail' book.slug %}">{{ book }}</a></td>
+          <td>
+            <a href="{% url 'book-detail' book.slug %}">{{ book }}</a>
+          </td>
         </tr>
         {% empty %}
         <tr class="table-info">
