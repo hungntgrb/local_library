@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class MyBaseModel(models.Model):
@@ -9,6 +10,26 @@ class MyBaseModel(models.Model):
     class Meta:
         abstract = True
         ordering = ("-time_created",)
+
+    @property
+    def is_soft_deleted(self) -> bool:
+        return self.deleted_at is not None
+
+    def soft_delete(self):
+        if self.is_soft_deleted:
+            return "No action. Object is already soft-deleted!"
+        else:
+            self.deleted_at = timezone.now()
+            self.save()
+            return "Soft-deleted object!"
+
+    def restore(self):
+        if not self.is_soft_deleted:
+            return "No action. Object is active!"
+        else:
+            self.deleted_at = None
+            self.save()
+            return "Restored object!"
 
 
 # Nguyen Thanh Hung
