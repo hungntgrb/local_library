@@ -1,3 +1,4 @@
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
@@ -21,7 +22,7 @@ urlpatterns = [
     path("view-403/", view_403, name="view_403"),
     path("view-404/", view_404, name="view_404"),
     path("view-500/", view_500, name="view_500"),
-]
+] + debug_toolbar_urls()
 
 # gnuH hnahT neyugN
 
